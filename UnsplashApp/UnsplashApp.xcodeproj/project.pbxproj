@@ -15,6 +15,8 @@
 		199851D625A82618001C6644 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 199851D425A82618001C6644 /* LaunchScreen.storyboard */; };
 		199851E125A82618001C6644 /* UnsplashAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199851E025A82618001C6644 /* UnsplashAppTests.swift */; };
 		199851EC25A82618001C6644 /* UnsplashAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199851EB25A82618001C6644 /* UnsplashAppUITests.swift */; };
+		1998520825A84BB8001C6644 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1998520625A84BB8001C6644 /* ImageCollectionViewCell.swift */; };
+		1998520925A84BB8001C6644 /* ImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1998520725A84BB8001C6644 /* ImageCollectionViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		199851E725A82618001C6644 /* UnsplashAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnsplashAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		199851EB25A82618001C6644 /* UnsplashAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashAppUITests.swift; sourceTree = "<group>"; };
 		199851ED25A82618001C6644 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1998520625A84BB8001C6644 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		1998520725A84BB8001C6644 /* ImageCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageCollectionViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +103,7 @@
 		199851C825A82616001C6644 /* UnsplashApp */ = {
 			isa = PBXGroup;
 			children = (
+				1998520525A84B7C001C6644 /* View */,
 				199851C925A82616001C6644 /* AppDelegate.swift */,
 				199851CB25A82616001C6644 /* SceneDelegate.swift */,
 				199851CD25A82616001C6644 /* ViewController.swift */,
@@ -126,6 +131,15 @@
 				199851ED25A82618001C6644 /* Info.plist */,
 			);
 			path = UnsplashAppUITests;
+			sourceTree = "<group>";
+		};
+		1998520525A84B7C001C6644 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1998520625A84BB8001C6644 /* ImageCollectionViewCell.swift */,
+				1998520725A84BB8001C6644 /* ImageCollectionViewCell.xib */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -233,6 +247,7 @@
 			files = (
 				199851D625A82618001C6644 /* LaunchScreen.storyboard in Resources */,
 				199851D325A82618001C6644 /* Assets.xcassets in Resources */,
+				1998520925A84BB8001C6644 /* ImageCollectionViewCell.xib in Resources */,
 				199851D125A82616001C6644 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -260,6 +275,7 @@
 			files = (
 				199851CE25A82616001C6644 /* ViewController.swift in Sources */,
 				199851CA25A82616001C6644 /* AppDelegate.swift in Sources */,
+				1998520825A84BB8001C6644 /* ImageCollectionViewCell.swift in Sources */,
 				199851CC25A82616001C6644 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
