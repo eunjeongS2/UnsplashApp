@@ -11,6 +11,9 @@ class ImageCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet private weak var imageView: UIImageView!
     
+    func configureCell(image: UIImage?) {
+        imageView.image = image
+    }
     
 }
 
