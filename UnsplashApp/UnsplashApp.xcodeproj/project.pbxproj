@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		199851CA25A82616001C6644 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199851C925A82616001C6644 /* AppDelegate.swift */; };
-		199851CC25A82616001C6644 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199851CB25A82616001C6644 /* SceneDelegate.swift */; };
 		199851CE25A82616001C6644 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199851CD25A82616001C6644 /* MainViewController.swift */; };
 		199851D125A82616001C6644 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 199851CF25A82616001C6644 /* Main.storyboard */; };
 		199851D325A82618001C6644 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 199851D225A82618001C6644 /* Assets.xcassets */; };
@@ -39,7 +38,6 @@
 /* Begin PBXFileReference section */
 		199851C625A82615001C6644 /* UnsplashApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnsplashApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		199851C925A82616001C6644 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		199851CB25A82616001C6644 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		199851CD25A82616001C6644 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		199851D025A82616001C6644 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		199851D225A82618001C6644 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -104,10 +102,8 @@
 			isa = PBXGroup;
 			children = (
 				1998521025A85293001C6644 /* Scene */,
-				1998520F25A85276001C6644 /* Storyboard */,
 				1998520525A84B7C001C6644 /* View */,
 				199851C925A82616001C6644 /* AppDelegate.swift */,
-				199851CB25A82616001C6644 /* SceneDelegate.swift */,
 				199851CF25A82616001C6644 /* Main.storyboard */,
 				199851D425A82618001C6644 /* LaunchScreen.storyboard */,
 				199851D225A82618001C6644 /* Assets.xcassets */,
@@ -141,13 +137,6 @@
 				1998520725A84BB8001C6644 /* ImageCollectionViewCell.xib */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		1998520F25A85276001C6644 /* Storyboard */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Storyboard;
 			sourceTree = "<group>";
 		};
 		1998521025A85293001C6644 /* Scene */ = {
@@ -300,7 +289,6 @@
 				199851CE25A82616001C6644 /* MainViewController.swift in Sources */,
 				199851CA25A82616001C6644 /* AppDelegate.swift in Sources */,
 				1998520825A84BB8001C6644 /* ImageCollectionViewCell.swift in Sources */,
-				199851CC25A82616001C6644 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
