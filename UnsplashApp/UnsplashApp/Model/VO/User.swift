@@ -8,5 +8,5 @@
 import Foundation
 
 struct User {
-    let username
+    let username: String
 }
