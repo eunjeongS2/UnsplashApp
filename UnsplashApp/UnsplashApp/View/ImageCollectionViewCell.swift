@@ -18,21 +18,21 @@ class ImageCollectionViewCell: UICollectionViewCell {
 }
 
 extension ImageCollectionViewCell {
-    
-    private static var typeName: String {
-        String(describing: type(of: self))
-    }
-    
+
     static func registerNib(collectionView: UICollectionView) {
-        let nib = UINib(nibName: ImageCollectionViewCell.typeName, bundle: nil)
+        let nib = UINib(nibName: ImageCollectionViewCell.Name.typeName, bundle: nil)
         collectionView.register(nib, forCellWithReuseIdentifier: Identifier.reusableCell)
     }
     
 }
 
-private extension ImageCollectionViewCell {
+extension ImageCollectionViewCell {
     
     enum Identifier {
         static let reusableCell: String = "ImageCell"
+    }
+    
+    enum Name {
+        static let typeName: String = "ImageCollectionViewCell"
     }
 }
