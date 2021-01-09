@@ -22,15 +22,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UL7-IW-fge">
-                                <rect key="frame" x="0.0" y="0.0" width="50" height="49"/>
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="systemGray4Color"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="UL7-IW-fge" secondAttribute="trailing" id="22Z-kg-uP0"/>
                             <constraint firstItem="UL7-IW-fge" firstAttribute="leading" secondItem="cRR-d0-Rzt" secondAttribute="leading" id="Wn2-lE-PjK"/>
                             <constraint firstItem="UL7-IW-fge" firstAttribute="top" secondItem="cRR-d0-Rzt" secondAttribute="top" id="j1g-GC-TFh"/>
-                            <constraint firstAttribute="bottom" secondItem="UL7-IW-fge" secondAttribute="bottom" constant="1" id="oBP-Dg-MhC"/>
+                            <constraint firstAttribute="bottom" secondItem="UL7-IW-fge" secondAttribute="bottom" id="oBP-Dg-MhC"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -49,8 +49,8 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        <systemColor name="systemGray4Color">
+            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
