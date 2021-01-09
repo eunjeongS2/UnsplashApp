@@ -44,18 +44,6 @@ class MainViewController: UIViewController {
         photoCollectionView.delegate = self
         photoCollectionView.dataSource = self
     }
-    
-    private func mockupPhotos() -> [UIImage] {
-        let imagesURL = [
-            "https://lh3.googleusercontent.com/proxy/wiLbq-P2WTDqpcqcN8N3EXXZgUK-mHV2V73-jbBCvWVnp6nvaVaPHYZp6i_Z-MqiOMmmKb8c5tCLcXI-EIfJRE69ccPnL-lZHtQ8Y4V-e_Y5cogRsHF6ffT3RaCmXmN7W3vSncK0nGvLjDMnBZfY85I",
-            "https://i.ytimg.com/vi/ohtkpDDezLo/maxresdefault.jpg",
-            "https://image.imnews.imbc.com/news/2013/culture/article/__icsFiles/afieldfile/2013/04/07/32.jpg",
-            "https://image.auction.co.kr/itemimage/14/97/95/1497951b06.jpg"
-        ]
-        let datas = imagesURL.compactMap { URL(string: $0) }.compactMap { try? Data(contentsOf: $0) }
-        
-        return datas.compactMap { UIImage(data: $0) }
-    }
 
 }
 
