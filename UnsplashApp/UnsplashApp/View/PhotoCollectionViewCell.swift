@@ -29,6 +29,11 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         configureGradientLayer()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageView.image = nil
+    }
+    
     private func configureGradientLayer() {
         gradientLayer.frame = imageView.bounds
         
