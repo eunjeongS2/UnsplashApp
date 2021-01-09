@@ -10,12 +10,33 @@ import UIKit
 class MainViewController: UIViewController {
 
     @IBOutlet private weak var photoCollectionView: UICollectionView!
-    private var photos = [UIImage]()
+    private var photos = [Photo]()
+    
+    private let httpService = HTTPService(session: URLSession(configuration: .default))
+    private lazy var photoService: PhotoServicing = {
+        PhotoService(dataProvider: httpService)
+    }()
+    
+    private lazy var imageService: ImageServicing = {
+        ImageService(urlProvider: httpService)
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureCollectionView()
-        photos = mockupPhotos()
+        
+        requestPhotos() { [weak self] in
+            self?.configureCollectionView()
+        }
+    }
+    
+    private func requestPhotos(compeltion: @escaping () -> Void) {
+        let endPoint = UnsplashEndPoint.photos(page: 1, count: 20)
+        
+        photoService.photos(page: 1, endPoint: endPoint) { [weak self] in
+            guard let photos = $0 else { return }
+            self?.photos += photos
+            compeltion()
+        }
     }
     
     private func configureCollectionView() {
