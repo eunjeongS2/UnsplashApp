@@ -74,4 +74,19 @@ extension MainViewController: UICollectionViewDataSource {
     
 }
 
+extension MainViewController: UICollectionViewDelegateFlowLayout {
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+        guard let photo = photos[safe: indexPath.item] else { return .zero }
+        let width = view.frame.width
+        let ratio = CGFloat(photo.height) / CGFloat(photo.width)
+        let height = width * ratio
+        return CGSize(width: width, height: height)
+    }
+}
+
 extension MainViewController: UICollectionViewDelegate {}
