@@ -10,12 +10,33 @@ import UIKit
 class MainViewController: UIViewController {
 
     @IBOutlet private weak var photoCollectionView: UICollectionView!
-    private var photos = [UIImage]()
+    private var photos = [Photo]()
+    
+    private let httpService = HTTPService(session: URLSession(configuration: .default))
+    private lazy var photoService: PhotoServicing = {
+        PhotoService(dataProvider: httpService)
+    }()
+    
+    private lazy var imageService: ImageServicing = {
+        ImageService(urlProvider: httpService)
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureCollectionView()
-        photos = mockupPhotos()
+        
+        requestPhotos() { [weak self] in
+            self?.configureCollectionView()
+        }
+    }
+    
+    private func requestPhotos(compeltion: @escaping () -> Void) {
+        let endPoint = UnsplashEndPoint.photos(page: 1, count: 20)
+        
+        photoService.photos(page: 1, endPoint: endPoint) { [weak self] in
+            guard let photos = $0 else { return }
+            self?.photos += photos
+            compeltion()
+        }
     }
     
     private func configureCollectionView() {
@@ -23,38 +44,55 @@ class MainViewController: UIViewController {
         photoCollectionView.delegate = self
         photoCollectionView.dataSource = self
     }
-    
-    private func mockupPhotos() -> [UIImage] {
-        let imagesURL = [
-            "https://lh3.googleusercontent.com/proxy/wiLbq-P2WTDqpcqcN8N3EXXZgUK-mHV2V73-jbBCvWVnp6nvaVaPHYZp6i_Z-MqiOMmmKb8c5tCLcXI-EIfJRE69ccPnL-lZHtQ8Y4V-e_Y5cogRsHF6ffT3RaCmXmN7W3vSncK0nGvLjDMnBZfY85I",
-            "https://i.ytimg.com/vi/ohtkpDDezLo/maxresdefault.jpg",
-            "https://image.imnews.imbc.com/news/2013/culture/article/__icsFiles/afieldfile/2013/04/07/32.jpg",
-            "https://image.auction.co.kr/itemimage/14/97/95/1497951b06.jpg"
-        ]
-        let datas = imagesURL.compactMap { URL(string: $0) }.compactMap { try? Data(contentsOf: $0) }
-        
-        return datas.compactMap { UIImage(data: $0) }
-    }
 
 }
 
 extension MainViewController: UICollectionViewDataSource {
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        numberOfItemsInSection section: Int) -> Int {
+        
         photos.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         let reuseIdentifier = PhotoCollectionViewCell.Identifier.reusableCell
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
         
-        guard let photoCell = cell as? PhotoCollectionViewCell else { return cell }
+        guard let photoCell = cell as? PhotoCollectionViewCell,
+              let photo = photos[safe: indexPath.item]
+        else {
+            return cell
+        }
         
-        photoCell.configureCell(image: photos[indexPath.item])
+        let endPoint = UnsplashEndPoint.photoURL(url: photo.url, width: Int(view.frame.width))
+        
+        imageService.imageURL(endPoint: endPoint) {
+            photoCell.configureCell(image: $0)
+        }
         
         return photoCell
     }
     
+}
+
+extension MainViewController: UICollectionViewDelegateFlowLayout {
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+        guard let photo = photos[safe: indexPath.item] else { return .zero }
+        let width = view.frame.width
+        let ratio = CGFloat(photo.height) / CGFloat(photo.width)
+        let height = width * ratio
+        return CGSize(width: width, height: height)
+    }
 }
 
 extension MainViewController: UICollectionViewDelegate {}

@@ -60,6 +60,40 @@ extension HTTPService: DataProvided {
     
 }
 
+extension HTTPService: URLProvided {
+    
+    func url(url: URL?,
+                  headers: HTTPHeaders?,
+                  successHandler: @escaping (URL?) -> Void,
+                  failureHandler: ((Error) -> Void)?) {
+        guard let url = url
+        else {
+            failureHandler?(NetworkError.url)
+            return
+        }
+        
+        let imageRequest = request(url: url, headers: headers)
+        
+        concurrentQueue.async { [weak self] in
+            self?.session.downloadTask(with: imageRequest) { (url, response, error) in
+                if let error = error {
+                    failureHandler?(error)
+                    return
+                }
+                if let httpResponse = response as? HTTPURLResponse {
+                    guard 200...299 ~= httpResponse.statusCode
+                    else {
+                        failureHandler?(NetworkError.http(code: httpResponse.statusCode))
+                        return
+                    }
+                }
+                successHandler(url)
+            }.resume()
+        }
+    }
+    
+}
+
 private enum Name {
     static let concurrentQueue = "DataProviderConcurrentQueue"
 }

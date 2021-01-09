@@ -22,6 +22,14 @@
 		1998525325A8B033001C6644 /* UnsplashEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1998525225A8B033001C6644 /* UnsplashEndPoint.swift */; };
 		1998525B25A8B125001C6644 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1998525A25A8B125001C6644 /* EndPoint.swift */; };
 		1998526025A97DD7001C6644 /* HTTPHeaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1998525F25A97DD7001C6644 /* HTTPHeaders.swift */; };
+		1998526525A97F70001C6644 /* HTTPService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1998526425A97F6F001C6644 /* HTTPService.swift */; };
+		1998526A25A97FF7001C6644 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1998526925A97FF7001C6644 /* NetworkError.swift */; };
+		1998527225A98AA8001C6644 /* PhotoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1998527125A98AA8001C6644 /* PhotoService.swift */; };
+		1998528525A9AC6D001C6644 /* URLProvided.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1998528425A9AC6D001C6644 /* URLProvided.swift */; };
+		1998528D25A9B03B001C6644 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1998528C25A9B03B001C6644 /* ImageService.swift */; };
+		1998529225A9D400001C6644 /* PhotoServicing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1998529125A9D400001C6644 /* PhotoServicing.swift */; };
+		1998529725A9D41E001C6644 /* ImageServicing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1998529625A9D41E001C6644 /* ImageServicing.swift */; };
+		199852A325A9DCAC001C6644 /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199852A225A9DCAC001C6644 /* Array+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +69,14 @@
 		1998525225A8B033001C6644 /* UnsplashEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashEndPoint.swift; sourceTree = "<group>"; };
 		1998525A25A8B125001C6644 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 		1998525F25A97DD7001C6644 /* HTTPHeaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPHeaders.swift; sourceTree = "<group>"; };
+		1998526425A97F6F001C6644 /* HTTPService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPService.swift; sourceTree = "<group>"; };
+		1998526925A97FF7001C6644 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		1998527125A98AA8001C6644 /* PhotoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoService.swift; sourceTree = "<group>"; };
+		1998528425A9AC6D001C6644 /* URLProvided.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLProvided.swift; sourceTree = "<group>"; };
+		1998528C25A9B03B001C6644 /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
+		1998529125A9D400001C6644 /* PhotoServicing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoServicing.swift; sourceTree = "<group>"; };
+		1998529625A9D41E001C6644 /* ImageServicing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageServicing.swift; sourceTree = "<group>"; };
+		199852A225A9DCAC001C6644 /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +125,7 @@
 		199851C825A82616001C6644 /* UnsplashApp */ = {
 			isa = PBXGroup;
 			children = (
+				199852A125A9DC85001C6644 /* Extension */,
 				1998523825A8AB74001C6644 /* UnsplashKey.swift */,
 				1998522125A864FB001C6644 /* Model */,
 				1998521025A85293001C6644 /* Scene */,
@@ -170,11 +187,26 @@
 			isa = PBXGroup;
 			children = (
 				1998524625A8AEF4001C6644 /* DataProvided.swift */,
-				1998525225A8B033001C6644 /* UnsplashEndPoint.swift */,
+				1998528425A9AC6D001C6644 /* URLProvided.swift */,
+				1998526425A97F6F001C6644 /* HTTPService.swift */,
 				1998525A25A8B125001C6644 /* EndPoint.swift */,
+				1998525225A8B033001C6644 /* UnsplashEndPoint.swift */,
 				1998525F25A97DD7001C6644 /* HTTPHeaders.swift */,
+				1998526925A97FF7001C6644 /* NetworkError.swift */,
+				1998529125A9D400001C6644 /* PhotoServicing.swift */,
+				1998527125A98AA8001C6644 /* PhotoService.swift */,
+				1998529625A9D41E001C6644 /* ImageServicing.swift */,
+				1998528C25A9B03B001C6644 /* ImageService.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		199852A125A9DC85001C6644 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				199852A225A9DCAC001C6644 /* Array+.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -309,15 +341,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				1998523925A8AB74001C6644 /* UnsplashKey.swift in Sources */,
+				1998528D25A9B03B001C6644 /* ImageService.swift in Sources */,
 				1998522E25A8A961001C6644 /* PhotoURL.swift in Sources */,
+				1998528525A9AC6D001C6644 /* URLProvided.swift in Sources */,
 				1998525B25A8B125001C6644 /* EndPoint.swift in Sources */,
 				1998524725A8AEF4001C6644 /* DataProvided.swift in Sources */,
+				199852A325A9DCAC001C6644 /* Array+.swift in Sources */,
+				1998527225A98AA8001C6644 /* PhotoService.swift in Sources */,
 				1998522325A884C4001C6644 /* Photo.swift in Sources */,
 				1998525325A8B033001C6644 /* UnsplashEndPoint.swift in Sources */,
 				1998523325A8AA67001C6644 /* User.swift in Sources */,
 				199851CE25A82616001C6644 /* MainViewController.swift in Sources */,
 				199851CA25A82616001C6644 /* AppDelegate.swift in Sources */,
+				1998529725A9D41E001C6644 /* ImageServicing.swift in Sources */,
 				1998520825A84BB8001C6644 /* PhotoCollectionViewCell.swift in Sources */,
+				1998529225A9D400001C6644 /* PhotoServicing.swift in Sources */,
+				1998526A25A97FF7001C6644 /* NetworkError.swift in Sources */,
+				1998526525A97F70001C6644 /* HTTPService.swift in Sources */,
 				1998526025A97DD7001C6644 /* HTTPHeaders.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
