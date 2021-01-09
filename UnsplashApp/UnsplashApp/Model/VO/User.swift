@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct User {
+struct User: Codable {
     let username: String
 }
