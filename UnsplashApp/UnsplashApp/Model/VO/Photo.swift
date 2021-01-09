@@ -18,7 +18,7 @@ class Photo: Codable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(String.self, forKey: .id)
         url = try container.decode(PhotoURL.self, forKey: .url).raw
-        username = try container.decode(User.self, forKey: .username).username
+        username = try container.decode(User.self, forKey: .username).name
         width = try container.decode(Int.self, forKey: .width)
         height = try container.decode(Int.self, forKey: .height)
     }
