@@ -24,15 +24,15 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        requestPhotos() { [weak self] in
+        requestPhotos(page: 1) { [weak self] in
             self?.configureCollectionView()
         }
     }
     
-    private func requestPhotos(compeltion: @escaping () -> Void) {
-        let endPoint = UnsplashEndPoint.photos(page: 1, count: 20)
+    private func requestPhotos(page: Int, compeltion: @escaping () -> Void) {
+        let endPoint = UnsplashEndPoint.photos(page: page, count: Count.perPage)
         
-        photoService.photos(page: 1, endPoint: endPoint) { [weak self] in
+        photoService.photos(page: page, endPoint: endPoint) { [weak self] in
             guard let photos = $0 else { return }
             self?.photos += photos
             compeltion()
@@ -99,4 +99,25 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension MainViewController: UICollectionViewDelegate {}
+extension MainViewController: UICollectionViewDelegate {
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        willDisplay cell: UICollectionViewCell,
+        forItemAt indexPath: IndexPath) {
+        
+        if indexPath.item == photos.count - 1 {
+            let page = Int(ceil(Double(photos.count) / Double(Count.perPage))) + 1
+            requestPhotos(page: page) {
+                collectionView.reloadData()
+            }
+        }
+    }
+}
+
+private extension MainViewController {
+    
+    enum Count {
+        static let perPage: Int = 30
+    }
+}
