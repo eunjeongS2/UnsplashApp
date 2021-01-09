@@ -35,6 +35,6 @@ private extension Photo {
         case username = "user"
         case width
         case height
-        case sponsored
+        case sponsored = "sponsorship"
     }
 }
