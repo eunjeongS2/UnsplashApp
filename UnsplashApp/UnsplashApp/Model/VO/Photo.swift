@@ -13,6 +13,7 @@ class Photo: Codable {
     let username: String
     let width: Int
     let height: Int
+    let sponsored: Bool
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -21,6 +22,7 @@ class Photo: Codable {
         username = try container.decode(User.self, forKey: .username).name
         width = try container.decode(Int.self, forKey: .width)
         height = try container.decode(Int.self, forKey: .height)
+        sponsored = try !container.decodeNil(forKey: .sponsored)
     }
     
 }
@@ -33,5 +35,6 @@ private extension Photo {
         case username = "user"
         case width
         case height
+        case sponsored
     }
 }
