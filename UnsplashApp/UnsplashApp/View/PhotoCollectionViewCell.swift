@@ -10,6 +10,13 @@ import UIKit
 class PhotoCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet private weak var imageView: UIImageView!
+    @IBOutlet private weak var usernameLabel: UILabel!
+    @IBOutlet private weak var sponsoredLabel: UILabel!
+    
+    func configureCell(username: String, sponsored: Bool) {
+        usernameLabel.text = username
+        sponsoredLabel.isHidden = !sponsored
+    }
     
     func configureCell(image: UIImage?) {
         imageView.image = image
