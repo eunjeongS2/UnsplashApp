@@ -8,7 +8,7 @@
 import Foundation
 
 enum UnsplashEndPoint {
-    case photos
+    case photos(page: Int, count: Int)
     case photo(id: String)
 }
 
@@ -16,8 +16,8 @@ extension UnsplashEndPoint: EndPoint {
     
     var url: URL? {
         switch self {
-        case .photos:
-            return URL(string: "\(UnsplashEndPoint.baseURL)/photos/")
+        case .photos(let page, let count):
+            return URL(string: "\(UnsplashEndPoint.baseURL)/photos?page=\(page)&per_page=\(count)")
         case .photo(let id):
             return URL(string: "\(UnsplashEndPoint.baseURL)/photos/\(id)")
         }
