@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ImageCollectionViewCell: UICollectionViewCell {
+class PhotoCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet private weak var imageView: UIImageView!
     
@@ -17,22 +17,22 @@ class ImageCollectionViewCell: UICollectionViewCell {
     
 }
 
-extension ImageCollectionViewCell {
+extension PhotoCollectionViewCell {
 
     static func registerNib(collectionView: UICollectionView) {
-        let nib = UINib(nibName: ImageCollectionViewCell.Name.typeName, bundle: nil)
+        let nib = UINib(nibName: PhotoCollectionViewCell.Name.typeName, bundle: nil)
         collectionView.register(nib, forCellWithReuseIdentifier: Identifier.reusableCell)
     }
     
 }
 
-extension ImageCollectionViewCell {
+extension PhotoCollectionViewCell {
     
     enum Identifier {
-        static let reusableCell: String = "ImageCell"
+        static let reusableCell: String = "PhotoCell"
     }
     
     enum Name {
-        static let typeName: String = "ImageCollectionViewCell"
+        static let typeName: String = "PhotoCollectionViewCell"
     }
 }

@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MainViewController.swift
 //  UnsplashApp
 //
 //  Created by eunjeong lee on 2021/01/08.
@@ -9,22 +9,22 @@ import UIKit
 
 class MainViewController: UIViewController {
 
-    @IBOutlet private weak var imageCollectionView: UICollectionView!
-    private var images = [UIImage]()
+    @IBOutlet private weak var photoCollectionView: UICollectionView!
+    private var photos = [UIImage]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
-        images = mockupImages()
+        photos = mockupPhotos()
     }
     
     private func configureCollectionView() {
-        ImageCollectionViewCell.registerNib(collectionView: imageCollectionView)
-        imageCollectionView.delegate = self
-        imageCollectionView.dataSource = self
+        PhotoCollectionViewCell.registerNib(collectionView: photoCollectionView)
+        photoCollectionView.delegate = self
+        photoCollectionView.dataSource = self
     }
     
-    private func mockupImages() -> [UIImage] {
+    private func mockupPhotos() -> [UIImage] {
         let imagesURL = [
             "https://lh3.googleusercontent.com/proxy/wiLbq-P2WTDqpcqcN8N3EXXZgUK-mHV2V73-jbBCvWVnp6nvaVaPHYZp6i_Z-MqiOMmmKb8c5tCLcXI-EIfJRE69ccPnL-lZHtQ8Y4V-e_Y5cogRsHF6ffT3RaCmXmN7W3vSncK0nGvLjDMnBZfY85I",
             "https://i.ytimg.com/vi/ohtkpDDezLo/maxresdefault.jpg",
@@ -41,18 +41,18 @@ class MainViewController: UIViewController {
 extension MainViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        images.count
+        photos.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let reuseIdentifier = ImageCollectionViewCell.Identifier.reusableCell
+        let reuseIdentifier = PhotoCollectionViewCell.Identifier.reusableCell
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
         
-        guard let imageCell = cell as? ImageCollectionViewCell else { return cell }
+        guard let photoCell = cell as? PhotoCollectionViewCell else { return cell }
         
-        imageCell.configureCell(image: images[indexPath.item])
+        photoCell.configureCell(image: photos[indexPath.item])
         
-        return imageCell
+        return photoCell
     }
     
 }
