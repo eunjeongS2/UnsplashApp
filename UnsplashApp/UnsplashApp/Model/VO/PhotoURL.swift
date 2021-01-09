@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct PhotoURL {
+struct PhotoURL: Codable {
     let raw: String
 }
