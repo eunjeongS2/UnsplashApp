@@ -57,9 +57,17 @@ extension MainViewController: UICollectionViewDataSource {
         let reuseIdentifier = PhotoCollectionViewCell.Identifier.reusableCell
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
         
-        guard let photoCell = cell as? PhotoCollectionViewCell else { return cell }
+        guard let photoCell = cell as? PhotoCollectionViewCell,
+              let photo = photos[safe: indexPath.item]
+        else {
+            return cell
+        }
         
-        photoCell.configureCell(image: photos[indexPath.item])
+        let endPoint = UnsplashEndPoint.photoURL(url: photo.url, width: Int(view.frame.width))
+        
+        imageService.imageURL(endPoint: endPoint) {
+            photoCell.configureCell(image: $0)
+        }
         
         return photoCell
     }
