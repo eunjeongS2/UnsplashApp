@@ -69,6 +69,10 @@ extension MainViewController: UICollectionViewDataSource {
             return cell
         }
         
+        photoCell.configureCell(username: photo.username,
+                                sponsored: photo.sponsored,
+                                imageSize: cell.frame.size)
+        
         let endPoint = UnsplashEndPoint.photoURL(url: photo.url, width: Int(view.frame.width))
         
         imageService.imageURL(endPoint: endPoint) {
