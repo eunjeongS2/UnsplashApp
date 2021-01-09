@@ -73,12 +73,6 @@ extension MainViewController: UICollectionViewDataSource {
                                 sponsored: photo.sponsored,
                                 imageSize: cell.frame.size)
         
-        let endPoint = UnsplashEndPoint.photoURL(url: photo.url, width: Int(view.frame.width))
-        
-        imageService.imageURL(endPoint: endPoint) {
-            photoCell.configureCell(image: $0)
-        }
-        
         return photoCell
     }
     
@@ -112,7 +106,24 @@ extension MainViewController: UICollectionViewDelegate {
                 collectionView.reloadData()
             }
         }
+        
+        guard let photoCell = cell as? PhotoCollectionViewCell,
+              let photo = photos[safe: indexPath.item]
+        else {
+            return
+        }
+        
+        let width = Int(view.frame.width * UIScreen.main.scale)
+        let endPoint = UnsplashEndPoint.photoURL(url: photo.url, width: width)
+        
+        imageService.imageURL(endPoint: endPoint) {
+            let maxItem = collectionView.indexPathsForVisibleItems.map { $0.item }.max() ?? indexPath.item
+            if (maxItem - 5...maxItem + 5).contains(indexPath.item) {
+                photoCell.configureCell(image: $0)
+            }
+        }
     }
+    
 }
 
 private extension MainViewController {
