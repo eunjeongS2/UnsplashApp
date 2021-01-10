@@ -24,6 +24,15 @@ class DetailView: UIView {
         configureNib()
         configureTransparentNavigationBar()
     }
+    
+    func configureView(username: String, tempImage: UIImage?) {
+        titleItem.title = username
+        imageView.image = tempImage
+    }
+    
+    func configureView(detailImage: UIImage?) {
+        imageView.image = detailImage
+    }
 
     private func configureTransparentNavigationBar() {
         navigationBar.setBackgroundImage(UIImage(), for: .default)
