@@ -10,8 +10,7 @@ import UIKit
 final class MainViewController: UIViewController {
 
     @IBOutlet private weak var photoCollectionView: UICollectionView!
-    private var photos = [Photo]()
-    private let detailView = DetailView()
+    private var photoStorage = PhotoDataStore()
     
     private let httpService = HTTPService(session: URLSession(configuration: .default))
     private lazy var photoService: PhotoServicing = {
@@ -24,17 +23,10 @@ final class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureDetailView()
-
+        
         requestPhotos(page: 1) { [weak self] in
             self?.configureCollectionView()
         }
-    }
-    
-    private func configureDetailView() {
-        view.addSubview(detailView)
-        detailView.constraintFit(at: view)
-        detailView.isHidden = true
     }
     
     private func requestPhotos(page: Int, compeltion: @escaping () -> Void) {
@@ -42,7 +34,7 @@ final class MainViewController: UIViewController {
         
         photoService.photos(page: page, endPoint: endPoint) { [weak self] in
             guard let photos = $0 else { return }
-            self?.photos += photos
+            self?.photoStorage.append(photos)
             compeltion()
         }
     }
@@ -61,7 +53,7 @@ extension MainViewController: UICollectionViewDataSource {
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int) -> Int {
         
-        photos.count
+        photoStorage.count
     }
     
     func collectionView(
@@ -72,7 +64,7 @@ extension MainViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
         
         guard let photoCell = cell as? PhotoCollectionViewCell,
-              let photo = photos[safe: indexPath.item]
+              let photo = photoStorage[indexPath.item]
         else {
             return cell
         }
@@ -93,7 +85,7 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-        guard let photo = photos[safe: indexPath.item] else { return .zero }
+        guard let photo = photoStorage[indexPath.item] else { return .zero }
         let width = view.frame.width
         let ratio = CGFloat(photo.height) / CGFloat(photo.width)
         let height = width * ratio
@@ -108,15 +100,15 @@ extension MainViewController: UICollectionViewDelegate {
         willDisplay cell: UICollectionViewCell,
         forItemAt indexPath: IndexPath) {
         
-        if indexPath.item == photos.count - 1 {
-            let page = Int(ceil(Double(photos.count) / Double(Count.perPage))) + 1
+        if indexPath.item == photoStorage.count - 1 {
+            let page = Int(ceil(Double(photoStorage.count) / Double(Count.perPage))) + 1
             requestPhotos(page: page) {
                 collectionView.reloadData()
             }
         }
         
         guard let photoCell = cell as? PhotoCollectionViewCell,
-              let photo = photos[safe: indexPath.item]
+              let photo = photoStorage[indexPath.item]
         else {
             return
         }
