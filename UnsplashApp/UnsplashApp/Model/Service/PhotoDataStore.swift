@@ -7,7 +7,14 @@
 
 import Foundation
 
-class PhotoDataStore {
+protocol PhotoStorable {
+    subscript (index: Int) -> Photo? { get }
+    
+    func append(_ photos: [Photo])
+    var count: Int { get }
+}
+
+class PhotoDataStore: PhotoStorable {
     
     private var photos = [Photo]()
     
