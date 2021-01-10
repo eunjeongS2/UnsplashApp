@@ -11,6 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DetailView" customModule="UnsplashApp" customModuleProvider="target">
             <connections>
                 <outlet property="imageView" destination="gHB-0V-gKh" id="KMf-RL-D9b"/>
+                <outlet property="imageViewCenterYConstraint" destination="NXe-w8-zD8" id="oJB-Z4-KPu"/>
                 <outlet property="navigationBar" destination="Gta-Sm-hLZ" id="4sY-n9-YFr"/>
                 <outlet property="titleItem" destination="1Ud-vd-xxr" id="eeC-Rd-Pv8"/>
             </connections>
@@ -24,8 +25,8 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gHB-0V-gKh">
-                    <rect key="frame" x="0.0" y="272" width="414" height="414"/>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="square.and.arrow.up.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="gHB-0V-gKh">
+                    <rect key="frame" x="0.0" y="437" width="414" height="21"/>
                 </imageView>
                 <navigationBar opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gta-Sm-hLZ">
                     <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -64,6 +65,7 @@
         </view>
     </objects>
     <resources>
+        <image name="square.and.arrow.up.fill" catalog="system" width="115" height="128"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
     </resources>
 </document>
