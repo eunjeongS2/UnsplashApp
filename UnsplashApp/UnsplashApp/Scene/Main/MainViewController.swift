@@ -11,6 +11,7 @@ final class MainViewController: UIViewController {
 
     @IBOutlet private weak var photoCollectionView: UICollectionView!
     private var photos = [Photo]()
+    private let detailView = DetailView()
     
     private let httpService = HTTPService(session: URLSession(configuration: .default))
     private lazy var photoService: PhotoServicing = {
@@ -23,10 +24,17 @@ final class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        configureDetailView()
+
         requestPhotos(page: 1) { [weak self] in
             self?.configureCollectionView()
         }
+    }
+    
+    private func configureDetailView() {
+        view.addSubview(detailView)
+        detailView.constraintFit(at: view)
+        detailView.isHidden = true
     }
     
     private func requestPhotos(page: Int, compeltion: @escaping () -> Void) {
