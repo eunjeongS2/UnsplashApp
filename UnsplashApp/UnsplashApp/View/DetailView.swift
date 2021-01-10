@@ -16,11 +16,22 @@ class DetailView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureNib()
+        configureTransparentNavigationBar()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         configureNib()
+        configureTransparentNavigationBar()
+    }
+
+    private func configureTransparentNavigationBar() {
+        navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationBar.shadowImage = UIImage()
+    }
+
+    @IBAction private func cancelButtonTouched(_ sender: UIBarButtonItem) {
+        isHidden = true
     }
     
 }
