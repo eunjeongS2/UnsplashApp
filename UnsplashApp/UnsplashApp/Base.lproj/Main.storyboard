@@ -41,7 +41,7 @@
                     </view>
                     <connections>
                         <outlet property="photoCollectionView" destination="iui-y0-Fgt" id="kpS-Tb-QQY"/>
-                        <segue destination="ff5-fa-sjY" kind="presentation" identifier="MainToDetailSegue" destinationCreationSelector="presentDetailViewController:" modalPresentationStyle="fullScreen" id="UwI-aY-y1F"/>
+                        <segue destination="ff5-fa-sjY" kind="presentation" identifier="MainToDetailSegue" destinationCreationSelector="presentDetailViewController:" animates="NO" modalPresentationStyle="fullScreen" id="UwI-aY-y1F"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
