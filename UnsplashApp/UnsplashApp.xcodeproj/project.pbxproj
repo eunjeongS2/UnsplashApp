@@ -35,8 +35,6 @@
 		1998529725A9D41E001C6644 /* ImageServicing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1998529625A9D41E001C6644 /* ImageServicing.swift */; };
 		199852A325A9DCAC001C6644 /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199852A225A9DCAC001C6644 /* Array+.swift */; };
 		199852AB25AA0934001C6644 /* UnsplashKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199852AA25AA0934001C6644 /* UnsplashKey.swift */; };
-		199852C225AB28B3001C6644 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 199852C125AB28B3001C6644 /* DetailView.swift */; };
-		199852C725AB28F0001C6644 /* DetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 199852C625AB28F0001C6644 /* DetailView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,8 +87,6 @@
 		1998529625A9D41E001C6644 /* ImageServicing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageServicing.swift; sourceTree = "<group>"; };
 		199852A225A9DCAC001C6644 /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
 		199852AA25AA0934001C6644 /* UnsplashKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashKey.swift; sourceTree = "<group>"; };
-		199852C125AB28B3001C6644 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
-		199852C625AB28F0001C6644 /* DetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,8 +155,6 @@
 				1998520625A84BB8001C6644 /* PhotoCollectionViewCell.swift */,
 				1998520725A84BB8001C6644 /* PhotoCollectionViewCell.xib */,
 				197ABCB125AB691300E662F0 /* DetailCollectionViewCell.swift */,
-				199852C125AB28B3001C6644 /* DetailView.swift */,
-				199852C625AB28F0001C6644 /* DetailView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -329,7 +323,6 @@
 				199851D325A82618001C6644 /* Assets.xcassets in Resources */,
 				1998520925A84BB8001C6644 /* PhotoCollectionViewCell.xib in Resources */,
 				199851D125A82616001C6644 /* Main.storyboard in Resources */,
-				199852C725AB28F0001C6644 /* DetailView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -370,7 +363,6 @@
 				1998523325A8AA67001C6644 /* User.swift in Sources */,
 				199851CE25A82616001C6644 /* MainViewController.swift in Sources */,
 				199851CA25A82616001C6644 /* AppDelegate.swift in Sources */,
-				199852C225AB28B3001C6644 /* DetailView.swift in Sources */,
 				1998529725A9D41E001C6644 /* ImageServicing.swift in Sources */,
 				196B222425AB398D00CCCD1E /* UIView+Constraint.swift in Sources */,
 				1998520825A84BB8001C6644 /* PhotoCollectionViewCell.swift in Sources */,
