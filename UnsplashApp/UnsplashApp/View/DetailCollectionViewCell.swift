@@ -23,8 +23,8 @@ class DetailCollectionViewCell: UICollectionViewCell {
     func animate(startY: CGFloat) {
         let differ = startY - (frame.size.height - (imageHeight / 2)) / 2
         imageViewCenterYConstraint.constant = differ
-        
-        guard abs(differ) > 10 else { return }
+
+        guard abs(differ) > 15 else { return }
 
         layoutIfNeeded()
 
