@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PhotoCollectionViewCell: UICollectionViewCell {
+final class PhotoCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var usernameLabel: UILabel!

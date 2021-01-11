@@ -7,14 +7,17 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
+final class MainViewController: UIViewController {
 
     @IBOutlet private weak var photoCollectionView: UICollectionView!
-    private var photos = [Photo]()
-    
+    private var selectedPhotoIndexPath: IndexPath = .init()
+    private var selectedPhotoY: CGFloat = .zero
+
     private let httpService = HTTPService(session: URLSession(configuration: .default))
-    private lazy var photoService: PhotoServicing = {
-        PhotoService(dataProvider: httpService)
+
+    private lazy var photoStorage: PhotoStorable = {
+        let photoService = PhotoService(dataProvider: httpService)
+        return PhotoDataStore(photoService: photoService)
     }()
     
     private lazy var imageService: ImageServicing = {
@@ -24,18 +27,13 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        requestPhotos(page: 1) { [weak self] in
+        let endPoint = photosEndPoint(page: 1)
+
+        photoStorage.requestPhotos(page: 1, endPoint: endPoint) { [weak self] in
             self?.configureCollectionView()
         }
-    }
-    
-    private func requestPhotos(page: Int, compeltion: @escaping () -> Void) {
-        let endPoint = UnsplashEndPoint.photos(page: page, count: Count.perPage)
-        
-        photoService.photos(page: page, endPoint: endPoint) { [weak self] in
-            guard let photos = $0 else { return }
-            self?.photos += photos
-            compeltion()
+        photoStorage.addPhotosChangeHandler { [weak self] in
+            self?.photoCollectionView.reloadData()
         }
     }
     
@@ -43,6 +41,17 @@ class MainViewController: UIViewController {
         PhotoCollectionViewCell.registerNib(collectionView: photoCollectionView)
         photoCollectionView.delegate = self
         photoCollectionView.dataSource = self
+    }
+    
+    @IBSegueAction private func presentDetailViewController(_ coder: NSCoder) -> DetailViewController? {
+        return DetailViewController(
+            coder: coder,
+            photoStorage: photoStorage,
+            imageService: imageService,
+            firstPhotoIndexPath: selectedPhotoIndexPath,
+            animationStartY: selectedPhotoY) { [weak self] in
+            self?.photoCollectionView.scrollToItem(at: $0, at: .centeredVertically, animated: false)
+        }
     }
 
 }
@@ -53,7 +62,7 @@ extension MainViewController: UICollectionViewDataSource {
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int) -> Int {
         
-        photos.count
+        photoStorage.count
     }
     
     func collectionView(
@@ -64,7 +73,7 @@ extension MainViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
         
         guard let photoCell = cell as? PhotoCollectionViewCell,
-              let photo = photos[safe: indexPath.item]
+              let photo = photoStorage[indexPath.item]
         else {
             return cell
         }
@@ -85,7 +94,7 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-        guard let photo = photos[safe: indexPath.item] else { return .zero }
+        guard let photo = photoStorage[indexPath.item] else { return .zero }
         let width = view.frame.width
         let ratio = CGFloat(photo.height) / CGFloat(photo.width)
         let height = width * ratio
@@ -99,16 +108,16 @@ extension MainViewController: UICollectionViewDelegate {
         _ collectionView: UICollectionView,
         willDisplay cell: UICollectionViewCell,
         forItemAt indexPath: IndexPath) {
-        
-        if indexPath.item == photos.count - 1 {
-            let page = Int(ceil(Double(photos.count) / Double(Count.perPage))) + 1
-            requestPhotos(page: page) {
-                collectionView.reloadData()
-            }
+                
+        if indexPath.item == photoStorage.count - 1 {
+            let page = Int(ceil(Double(photoStorage.count) / Double(Count.perPage))) + 1
+            let endPoint = photosEndPoint(page: page)
+            
+            photoStorage.requestPhotos(page: page, endPoint: endPoint, compeltion: nil)
         }
         
         guard let photoCell = cell as? PhotoCollectionViewCell,
-              let photo = photos[safe: indexPath.item]
+              let photo = photoStorage[indexPath.item]
         else {
             return
         }
@@ -124,11 +133,31 @@ extension MainViewController: UICollectionViewDelegate {
         }
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) else { return }
+        
+        let cellFrame = cell.frame.origin
+        let screenY = cell.convert(cellFrame, to: view).y
+        let collectionViewY = cell.frame.origin.y
+        selectedPhotoIndexPath = indexPath
+        selectedPhotoY = screenY - collectionViewY
+            
+        performSegue(withIdentifier: Identifier.detailSegue, sender: nil)
+    }
+    
 }
 
 private extension MainViewController {
     
     enum Count {
         static let perPage: Int = 30
+    }
+    
+    enum Identifier {
+        static let detailSegue: String = "MainToDetailSegue"
+    }
+    
+    func photosEndPoint(page: Int) -> EndPoint {
+        UnsplashEndPoint.photos(page: page, count: Count.perPage)
     }
 }
