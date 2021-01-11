@@ -29,21 +29,13 @@ final class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        requestPhotos(page: 1) { [weak self] in
+        let endPoint = photosEndPoint(page: 1)
+
+        photoStorage.requestPhotos(page: 1, endPoint: endPoint) { [weak self] in
             self?.configureCollectionView()
         }
         photoStorage.addPhotosChangeHandler { [weak self] in
             self?.photoCollectionView.reloadData()
-        }
-    }
-    
-    private func requestPhotos(page: Int, compeltion: @escaping () -> Void) {
-        let endPoint = UnsplashEndPoint.photos(page: page, count: Count.perPage)
-        
-        photoService.photos(page: page, endPoint: endPoint) { [weak self] in
-            guard let photos = $0 else { return }
-            self?.photoStorage.append(photos)
-            compeltion()
         }
     }
     
@@ -115,12 +107,12 @@ extension MainViewController: UICollectionViewDelegate {
         _ collectionView: UICollectionView,
         willDisplay cell: UICollectionViewCell,
         forItemAt indexPath: IndexPath) {
-        
+                
         if indexPath.item == photoStorage.count - 1 {
             let page = Int(ceil(Double(photoStorage.count) / Double(Count.perPage))) + 1
-            requestPhotos(page: page) {
-                collectionView.reloadData()
-            }
+            let endPoint = photosEndPoint(page: page)
+            
+            photoStorage.requestPhotos(page: page, endPoint: endPoint, compeltion: nil)
         }
         
         guard let photoCell = cell as? PhotoCollectionViewCell,
