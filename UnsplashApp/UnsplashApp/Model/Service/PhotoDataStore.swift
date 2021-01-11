@@ -10,24 +10,46 @@ import Foundation
 protocol PhotoStorable {
     subscript (index: Int) -> Photo? { get }
     
-    func append(_ photos: [Photo])
     var count: Int { get }
+    func append(_ photos: [Photo])
+    func requestPhotos(page: Int, endPoint: EndPoint, compeltion: @escaping () -> Void)
+    func addPhotosChangeHandler(_ handler: @escaping () -> Void)
 }
 
 class PhotoDataStore: PhotoStorable {
     
-    private var photos = [Photo]()
+    private var photos = [Photo]() {
+        didSet {
+            photosChangeHandlers.forEach {
+                $0()
+            }
+        }
+    }
+    private let photoService: PhotoServicing
+    private var photosChangeHandlers = [() -> Void]()
+    
+    init(photoService: PhotoServicing) {
+        self.photoService = photoService
+    }
     
     subscript (index: Int) -> Photo? {
         photos[safe: index]
+    }
+    
+    var count: Int {
+        photos.count
     }
     
     func append(_ photos: [Photo]) {
         self.photos += photos
     }
     
-    var count: Int {
-        photos.count
+    func requestPhotos(page: Int, endPoint: EndPoint, compeltion: @escaping () -> Void) {
+        photoService.photos(page: page, endPoint: endPoint) { [weak self] in
+            guard let photos = $0 else { return }
+            self?.append(photos)
+            compeltion()
+        }
     }
     
 }
