@@ -23,17 +23,20 @@ class DetailCollectionViewCell: UICollectionViewCell {
     func animate(startY: CGFloat) {
         let differ = startY - (frame.size.height - (imageHeight / 2)) / 2
         imageViewCenterYConstraint.constant = differ
+        
+        guard abs(differ) > 10 else { return }
+
         layoutIfNeeded()
 
         UIView.animate(
             withDuration: 0.5,
-            delay: 0,
+            delay: .zero,
             usingSpringWithDamping: 0.85,
             initialSpringVelocity: 0.5,
             options: .curveEaseIn) {
             
-           self.imageViewCenterYConstraint.constant = 0
-           self.layoutIfNeeded()
+            self.imageViewCenterYConstraint.constant = .zero
+            self.layoutIfNeeded()
        }
     }
     
@@ -41,6 +44,7 @@ class DetailCollectionViewCell: UICollectionViewCell {
         super.prepareForReuse()
         imageView.image = nil
         imageHeight = .zero
+        imageViewCenterYConstraint.constant = .zero
     }
 }
 
