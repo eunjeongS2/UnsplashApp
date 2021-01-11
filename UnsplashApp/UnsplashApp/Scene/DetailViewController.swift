@@ -52,6 +52,17 @@ class DetailViewController: UIViewController {
         navigationBar.shadowImage = UIImage()
     }
     
+    private func configureCollectionView() {
+        detailCollectionView.delegate = self
+        detailCollectionView.dataSource = self
+        
+        guard let firstPhotoIndexPath = firstPhotoIndexPath else { return }
+        
+        detailCollectionView.layoutIfNeeded()
+        detailCollectionView.scrollToItem(at: firstPhotoIndexPath, at: .left, animated: false)
+        titleItem.title = photoStorage?[firstPhotoIndexPath.item]?.username ?? .blank
+    }
+    
     @IBAction private func cancelButtonTouched(_ sender: UIBarButtonItem) {
         dismiss(animated: true) {}
     }
