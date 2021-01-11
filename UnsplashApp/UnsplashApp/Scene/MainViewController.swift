@@ -10,8 +10,7 @@ import UIKit
 final class MainViewController: UIViewController {
 
     @IBOutlet private weak var photoCollectionView: UICollectionView!
-    private var photoStorage: PhotoStorable = PhotoDataStore()
-    private var selectedPhotoNumber: Int = .zero
+    private var selectedPhotoIndexPath: IndexPath = .init()
     private var selectedPhotoY: CGFloat = .zero
 
     private let httpService = HTTPService(session: URLSession(configuration: .default))
@@ -58,7 +57,7 @@ final class MainViewController: UIViewController {
         return DetailViewController(coder: coder,
                                     photoStorage: photoStorage,
                                     imageService: imageService,
-                                    firstPhotoNumber: selectedPhotoNumber,
+                                    firstPhotoIndexPath: selectedPhotoIndexPath,
                                     animationStartY: selectedPhotoY)
     }
 
@@ -147,8 +146,7 @@ extension MainViewController: UICollectionViewDelegate {
         let cellFrame = cell.frame.origin
         let screenY = cell.convert(cellFrame, to: view).y
         let collectionViewY = cell.frame.origin.y
-        
-        selectedPhotoNumber = indexPath.item
+        selectedPhotoIndexPath = indexPath
         selectedPhotoY = screenY - collectionViewY
             
         performSegue(withIdentifier: Identifier.detailSegue, sender: nil)
