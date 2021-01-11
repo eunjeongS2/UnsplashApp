@@ -29,7 +29,7 @@ final class MainViewController: UIViewController {
         
         let endPoint = photosEndPoint(page: 1)
 
-        photoStorage.requestPhotos(page: 1, endPoint: endPoint) { [weak self] in
+        photoStorage.requestPhotos(endPoint: endPoint) { [weak self] in
             self?.configureCollectionView()
         }
         photoStorage.addPhotosChangeHandler { [weak self] in
@@ -113,7 +113,7 @@ extension MainViewController: UICollectionViewDelegate {
             let page = Int(ceil(Double(photoStorage.count) / Double(Count.perPage))) + 1
             let endPoint = photosEndPoint(page: page)
             
-            photoStorage.requestPhotos(page: page, endPoint: endPoint, compeltion: nil)
+            photoStorage.requestPhotos(endPoint: endPoint, compeltion: nil)
         }
         
         guard let photoCell = cell as? PhotoCollectionViewCell,
