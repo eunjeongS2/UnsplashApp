@@ -11,7 +11,9 @@ final class MainViewController: UIViewController {
 
     @IBOutlet private weak var photoCollectionView: UICollectionView!
     private var photoStorage: PhotoStorable = PhotoDataStore()
-    
+    private var selectedPhotoNumber: Int = .zero
+    private var selectedPhotoY: CGFloat = .zero
+
     private let httpService = HTTPService(session: URLSession(configuration: .default))
     private lazy var photoService: PhotoServicing = {
         PhotoService(dataProvider: httpService)
@@ -46,7 +48,11 @@ final class MainViewController: UIViewController {
     }
     
     @IBSegueAction private func presentDetailViewController(_ coder: NSCoder) -> DetailViewController? {
-        return DetailViewController(coder: coder, photoStorage: photoStorage, imageService: imageService)
+        return DetailViewController(coder: coder,
+                                    photoStorage: photoStorage,
+                                    imageService: imageService,
+                                    firstPhotoNumber: selectedPhotoNumber,
+                                    animationStartY: selectedPhotoY)
     }
 
 }
@@ -129,6 +135,15 @@ extension MainViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) else { return }
+        
+        let cellFrame = cell.frame.origin
+        let screenY = cell.convert(cellFrame, to: view).y
+        let collectionViewY = cell.frame.origin.y
+        
+        selectedPhotoNumber = indexPath.item
+        selectedPhotoY = screenY - collectionViewY
+            
         performSegue(withIdentifier: Identifier.detailSegue, sender: nil)
     }
     
