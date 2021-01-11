@@ -63,6 +63,15 @@ class DetailViewController: UIViewController {
         titleItem.title = photoStorage?[firstPhotoIndexPath.item]?.username ?? .blank
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        guard let firstPhotoIndexPath = firstPhotoIndexPath else { return }
+        
+        let detailCell = detailCollectionView.cellForItem(at: firstPhotoIndexPath) as? DetailCollectionViewCell
+        detailCell?.animate(startY: animationStartY)
+    }
+    
     @IBAction private func cancelButtonTouched(_ sender: UIBarButtonItem) {
         dismiss(animated: true) {}
     }
