@@ -16,18 +16,21 @@ class DetailViewController: UIViewController {
     private var photoStorage: PhotoStorable?
     private var imageService: ImageServicing?
     private var firstPhotoIndexPath: IndexPath?
+    private var lastIndexPathHandler: ((IndexPath) -> Void)?
     private let animationStartY: CGFloat
 
     init?(coder: NSCoder,
           photoStorage: PhotoStorable,
           imageService: ImageServicing,
           firstPhotoIndexPath: IndexPath,
-          animationStartY: CGFloat) {
+          animationStartY: CGFloat,
+          lastIndexPathHandler: ((IndexPath) -> Void)? = nil) {
         
         self.firstPhotoIndexPath = firstPhotoIndexPath
         self.animationStartY = animationStartY
         self.photoStorage = photoStorage
         self.imageService = imageService
+        self.lastIndexPathHandler = lastIndexPathHandler
         super.init(coder: coder)
 
     }
@@ -73,7 +76,12 @@ class DetailViewController: UIViewController {
     }
     
     @IBAction private func cancelButtonTouched(_ sender: UIBarButtonItem) {
-        dismiss(animated: true) {}
+        guard let visibleIndexPath = detailCollectionView.visibleIndexPath
+        else {
+            return
+        }
+        lastIndexPathHandler?(visibleIndexPath)
+        dismiss(animated: true)
     }
     
 }

@@ -46,11 +46,14 @@ final class MainViewController: UIViewController {
     }
     
     @IBSegueAction private func presentDetailViewController(_ coder: NSCoder) -> DetailViewController? {
-        return DetailViewController(coder: coder,
-                                    photoStorage: photoStorage,
-                                    imageService: imageService,
-                                    firstPhotoIndexPath: selectedPhotoIndexPath,
-                                    animationStartY: selectedPhotoY)
+        return DetailViewController(
+            coder: coder,
+            photoStorage: photoStorage,
+            imageService: imageService,
+            firstPhotoIndexPath: selectedPhotoIndexPath,
+            animationStartY: selectedPhotoY) { [weak self] in
+            self?.photoCollectionView.scrollToItem(at: $0, at: .centeredVertically, animated: false)
+        }
     }
 
 }
