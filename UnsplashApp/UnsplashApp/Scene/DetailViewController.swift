@@ -68,3 +68,72 @@ class DetailViewController: UIViewController {
     }
     
 }
+
+extension DetailViewController: UICollectionViewDelegateFlowLayout {
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+        return CGSize(width: view.frame.width, height: view.frame.height)
+    }
+}
+
+extension DetailViewController: UICollectionViewDelegate {
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        willDisplay cell: UICollectionViewCell,
+        forItemAt indexPath: IndexPath) {
+        
+        guard let photoStorage = photoStorage else { return }
+        
+        if indexPath.item == photoStorage.count - 1 {
+            let page = Int(ceil(Double(photoStorage.count) / Double(Count.perPage))) + 1
+            let endPoint = photosEndPoint(page: page)
+            
+            photoStorage.requestPhotos(page: page, endPoint: endPoint, compeltion: nil)
+        }
+    }
+        
+}
+
+extension DetailViewController: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        photoStorage?.count ?? .zero
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let reuseIdentifier = DetailCollectionViewCell.Identifier.reusableCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+ 
+        guard let detailPhotoCell = cell as? DetailCollectionViewCell,
+              let photo = photoStorage?[indexPath.item]
+        else {
+            return cell
+        }
+        
+        let width = Int(view.frame.width * UIScreen.main.scale)
+        let tempPhotoEndPoint = UnsplashEndPoint.photoURL(url: photo.url, width: width)
+
+        imageService?.imageURL(endPoint: tempPhotoEndPoint) {
+            detailPhotoCell.configureView(image: $0)
+        }
+        return detailPhotoCell
+    }
+
+}
+
+private extension DetailViewController {
+    
+    enum Count {
+        static let perPage: Int = 30
+    }
+    
+    func photosEndPoint(page: Int) -> EndPoint {
+        UnsplashEndPoint.photos(page: page, count: Count.perPage)
+    }
+    
+}
