@@ -19,6 +19,10 @@ final class MainViewController: UIViewController {
         PhotoService(dataProvider: httpService)
     }()
     
+    private lazy var photoStorage: PhotoStorable = {
+        PhotoDataStore(photoService: photoService)
+    }()
+    
     private lazy var imageService: ImageServicing = {
         ImageService(urlProvider: httpService)
     }()
@@ -28,6 +32,9 @@ final class MainViewController: UIViewController {
         
         requestPhotos(page: 1) { [weak self] in
             self?.configureCollectionView()
+        }
+        photoStorage.addPhotosChangeHandler { [weak self] in
+            self?.photoCollectionView.reloadData()
         }
     }
     
@@ -157,5 +164,9 @@ private extension MainViewController {
     
     enum Identifier {
         static let detailSegue: String = "MainToDetailSegue"
+    }
+    
+    func photosEndPoint(page: Int) -> EndPoint {
+        UnsplashEndPoint.photos(page: page, count: Count.perPage)
     }
 }

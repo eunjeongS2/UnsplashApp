@@ -52,4 +52,8 @@ class PhotoDataStore: PhotoStorable {
         }
     }
     
+    func addPhotosChangeHandler(_ handler: @escaping () -> Void) {
+        photosChangeHandlers.append(handler)
+    }
+
 }

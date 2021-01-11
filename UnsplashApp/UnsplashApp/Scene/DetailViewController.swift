@@ -41,6 +41,11 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTransparentNavigationBar()
+        configureCollectionView()
+        
+        photoStorage?.addPhotosChangeHandler { [weak self] in
+            self?.detailCollectionView.reloadData()
+        }
     }
     
     private func configureTransparentNavigationBar() {
