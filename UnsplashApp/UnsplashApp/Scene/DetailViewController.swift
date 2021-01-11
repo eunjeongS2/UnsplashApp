@@ -14,14 +14,26 @@ class DetailViewController: UIViewController {
     
     private var photoStorage: PhotoStorable?
     private var imageService: ImageServicing?
+    private let firstPhotoNumber: Int
+    private let animationStartY: CGFloat
 
-    init?(coder: NSCoder, photoStorage: PhotoStorable, imageService: ImageServicing) {
-        super.init(coder: coder)
+    init?(coder: NSCoder,
+          photoStorage: PhotoStorable,
+          imageService: ImageServicing,
+          firstPhotoNumber: Int,
+          animationStartY: CGFloat) {
+        
+        self.firstPhotoNumber = firstPhotoNumber
+        self.animationStartY = animationStartY
         self.photoStorage = photoStorage
         self.imageService = imageService
+        super.init(coder: coder)
+
     }
     
     required init?(coder: NSCoder) {
+        firstPhotoNumber = .zero
+        animationStartY = .zero
         super.init(coder: coder)
     }
     
