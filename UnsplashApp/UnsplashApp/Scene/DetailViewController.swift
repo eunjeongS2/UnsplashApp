@@ -11,6 +11,7 @@ class DetailViewController: UIViewController {
     
     @IBOutlet private weak var titleItem: UINavigationItem!
     @IBOutlet private weak var navigationBar: UINavigationBar!
+    @IBOutlet private weak var detailCollectionView: UICollectionView!
     
     private var photoStorage: PhotoStorable?
     private var imageService: ImageServicing?
@@ -50,4 +51,5 @@ class DetailViewController: UIViewController {
     @IBAction private func cancelButtonTouched(_ sender: UIBarButtonItem) {
         dismiss(animated: true) {}
     }
+    
 }

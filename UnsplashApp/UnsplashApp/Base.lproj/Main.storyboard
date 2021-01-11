@@ -70,7 +70,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="esO-Sl-z0j" customClass="DetailCollectionViewCell" customModule="UnsplashApp" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DetailPhotoCell" id="esO-Sl-z0j" customClass="DetailCollectionViewCell" customModule="UnsplashApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="OAD-1Q-pxD">
@@ -130,6 +130,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="detailCollectionView" destination="AeB-jg-Wth" id="JnW-wl-DhX"/>
                         <outlet property="navigationBar" destination="xJd-ne-jJm" id="xqi-fp-scf"/>
                         <outlet property="titleItem" destination="ztz-zb-DQp" id="e6b-UE-E1v"/>
                     </connections>
