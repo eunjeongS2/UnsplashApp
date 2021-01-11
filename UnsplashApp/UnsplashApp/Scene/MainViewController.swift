@@ -14,12 +14,10 @@ final class MainViewController: UIViewController {
     private var selectedPhotoY: CGFloat = .zero
 
     private let httpService = HTTPService(session: URLSession(configuration: .default))
-    private lazy var photoService: PhotoServicing = {
-        PhotoService(dataProvider: httpService)
-    }()
-    
+
     private lazy var photoStorage: PhotoStorable = {
-        PhotoDataStore(photoService: photoService)
+        let photoService = PhotoService(dataProvider: httpService)
+        return PhotoDataStore(photoService: photoService)
     }()
     
     private lazy var imageService: ImageServicing = {
