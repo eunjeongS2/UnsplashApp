@@ -143,6 +143,18 @@ extension DetailViewController: UICollectionViewDataSource {
 
 }
 
+extension DetailViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard let visibleIndexPath = detailCollectionView.visibleIndexPath
+        else {
+            return
+        }
+        titleItem.title = photoStorage?[visibleIndexPath.item]?.username ?? .blank
+    }
+    
+}
+
 private extension DetailViewController {
     
     enum Count {
