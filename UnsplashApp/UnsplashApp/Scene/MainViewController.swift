@@ -87,6 +87,16 @@ extension MainViewController: UICollectionViewDataSource {
         return photoCell
     }
     
+    func collectionView(
+        _ collectionView: UICollectionView,
+        viewForSupplementaryElementOfKind kind: String,
+        at indexPath: IndexPath) -> UICollectionReusableView {
+
+        return collectionView.dequeueReusableSupplementaryView(
+            ofKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: Identifier.header, for: indexPath)
+    }
+    
 }
 
 extension MainViewController: UICollectionViewDelegateFlowLayout {
@@ -165,6 +175,7 @@ private extension MainViewController {
     
     enum Identifier {
         static let detailSegue: String = "MainToDetailSegue"
+        static let header: String = "PhotoHeader"
     }
     
     func photosEndPoint(page: Int) -> EndPoint {
