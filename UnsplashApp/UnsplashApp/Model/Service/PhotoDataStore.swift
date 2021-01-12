@@ -12,8 +12,9 @@ protocol PhotoStorable {
     
     var count: Int { get }
     func append(_ photos: [Photo])
-    func requestPhotos(page: Int, endPoint: EndPoint, compeltion: (() -> Void)?)
+    func requestPhotos(endPoint: EndPoint, compeltion: (() -> Void)?)
     func addPhotosChangeHandler(_ handler: @escaping () -> Void)
+    func randomPhoto() -> Photo?
 }
 
 class PhotoDataStore: PhotoStorable {
@@ -44,8 +45,8 @@ class PhotoDataStore: PhotoStorable {
         self.photos += photos
     }
     
-    func requestPhotos(page: Int, endPoint: EndPoint, compeltion: (() -> Void)? = nil) {
-        photoService.photos(page: page, endPoint: endPoint) { [weak self] in
+    func requestPhotos(endPoint: EndPoint, compeltion: (() -> Void)? = nil) {
+        photoService.photos(endPoint: endPoint) { [weak self] in
             guard let photos = $0 else { return }
             self?.append(photos)
             compeltion?()
@@ -54,6 +55,11 @@ class PhotoDataStore: PhotoStorable {
     
     func addPhotosChangeHandler(_ handler: @escaping () -> Void) {
         photosChangeHandlers.append(handler)
+    }
+    
+    func randomPhoto() -> Photo? {
+        let randomIndex = (0..<count).randomElement() ?? .zero
+        return photos[safe: randomIndex]
     }
 
 }
