@@ -31,6 +31,16 @@ final class TitleView: UIView {
         usernameLabel.text = "Photo by \(username)"
     }
     
+    func updateSize(heightToSubtract: CGFloat) {
+        searchBarView.isHidden = imageViewHeight - heightToSubtract <= Size.height ? false : true
+        
+        if imageViewHeight < heightToSubtract {
+            imageViewHeightConstraint.constant = .zero
+            return
+        }
+        imageViewHeightConstraint.constant = imageViewHeight - heightToSubtract
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         imageView.makeGradientLayer()

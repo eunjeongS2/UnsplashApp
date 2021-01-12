@@ -10,6 +10,8 @@ import UIKit
 final class MainViewController: UIViewController {
 
     @IBOutlet private weak var photoCollectionView: UICollectionView!
+    @IBOutlet private weak var titleImageView: TitleView!
+    
     private var selectedPhotoIndexPath: IndexPath = .init()
     private var selectedPhotoY: CGFloat = .zero
 
@@ -143,6 +145,14 @@ extension MainViewController: UICollectionViewDelegate {
         selectedPhotoY = screenY - collectionViewY
             
         performSegue(withIdentifier: Identifier.detailSegue, sender: nil)
+    }
+    
+}
+
+extension MainViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        titleImageView.updateSize(heightToSubtract: scrollView.contentOffset.y)
     }
     
 }
