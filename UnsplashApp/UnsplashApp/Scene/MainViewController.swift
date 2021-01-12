@@ -26,6 +26,18 @@ final class MainViewController: UIViewController {
         ImageService(urlProvider: httpService)
     }()
     
+    private lazy var collectionViewSetting: PhotoCollectionViewSetting = {
+        PhotoCollectionViewSetting(collectionView: photoCollectionView,
+                                   headerIdentifier: Identifier.header,
+                                   photoStorage: photoStorage,
+                                   imageService: imageService,
+                                   perPageCount: Count.perPage,
+                                   photosEndPoint: photosEndPoint,
+                                   photoURLEndPoint: photoURLEndPoint,
+                                   didSelectHandler: collectionViewDidSelectHandler,
+                                   didScrollHandler: didScrollHandler)
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,9 +53,8 @@ final class MainViewController: UIViewController {
     }
     
     private func configureCollectionView() {
-        PhotoCollectionViewCell.registerNib(collectionView: photoCollectionView)
-        photoCollectionView.delegate = self
-        photoCollectionView.dataSource = self
+        photoCollectionView.delegate = collectionViewSetting
+        photoCollectionView.dataSource = collectionViewSetting
     }
     
     private func configureTitleView() {
@@ -63,6 +74,25 @@ final class MainViewController: UIViewController {
         }
     }
     
+    private func collectionViewDidSelectHandler(indexPath: IndexPath, y: CGFloat) {
+        selectedPhotoIndexPath = indexPath
+        selectedPhotoY = y
+        performSegue(withIdentifier: Identifier.detailSegue, sender: nil)
+    }
+    
+    private func photosEndPoint(page: Int) -> EndPoint {
+        UnsplashEndPoint.photos(page: page, count: Count.perPage)
+    }
+    
+    private func photoURLEndPoint(url: String) -> EndPoint {
+        let width = Int(view.frame.width * UIScreen.main.scale)
+        return UnsplashEndPoint.photoURL(url: url, width: width)
+    }
+    
+    private func didScrollHandler(_ scrollView: UIScrollView) {
+        titleImageView.updateSize(heightToSubtract: scrollView.contentOffset.y)
+    }
+    
     @IBSegueAction private func presentDetailViewController(_ coder: NSCoder) -> DetailViewController? {
         return DetailViewController(
             coder: coder,
@@ -76,111 +106,6 @@ final class MainViewController: UIViewController {
 
 }
 
-extension MainViewController: UICollectionViewDataSource {
-    
-    func collectionView(
-        _ collectionView: UICollectionView,
-        numberOfItemsInSection section: Int) -> Int {
-        
-        photoStorage.count
-    }
-    
-    func collectionView(
-        _ collectionView: UICollectionView,
-        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        let reuseIdentifier = PhotoCollectionViewCell.Identifier.reusableCell
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-        
-        guard let photoCell = cell as? PhotoCollectionViewCell,
-              let photo = photoStorage[indexPath.item]
-        else {
-            return cell
-        }
-        
-        photoCell.configureCell(username: photo.username,
-                                sponsored: photo.sponsored,
-                                imageSize: cell.frame.size)
-        
-        return photoCell
-    }
-    
-    func collectionView(
-        _ collectionView: UICollectionView,
-        viewForSupplementaryElementOfKind kind: String,
-        at indexPath: IndexPath) -> UICollectionReusableView {
-
-        return collectionView.dequeueReusableSupplementaryView(
-            ofKind: UICollectionView.elementKindSectionHeader,
-            withReuseIdentifier: Identifier.header, for: indexPath)
-    }
-    
-}
-
-extension MainViewController: UICollectionViewDelegateFlowLayout {
-
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        sizeForItemAt indexPath: IndexPath) -> CGSize {
-
-        guard let photo = photoStorage[indexPath.item] else { return .zero }
-        let width = view.frame.width
-        let ratio = CGFloat(photo.height) / CGFloat(photo.width)
-        let height = width * ratio
-        return CGSize(width: width, height: height)
-    }
-}
-
-extension MainViewController: UICollectionViewDelegate {
-    
-    func collectionView(
-        _ collectionView: UICollectionView,
-        willDisplay cell: UICollectionViewCell,
-        forItemAt indexPath: IndexPath) {
-                
-        if indexPath.item == photoStorage.count - 1 {
-            let page = Int(ceil(Double(photoStorage.count) / Double(Count.perPage))) + 1
-            let endPoint = photosEndPoint(page: page)
-            
-            photoStorage.requestPhotos(endPoint: endPoint, compeltion: nil)
-        }
-        
-        guard let photoCell = cell as? PhotoCollectionViewCell,
-              let photo = photoStorage[indexPath.item]
-        else {
-            return
-        }
-        requestImage(url: photo.url) {
-            let maxItem = collectionView.indexPathsForVisibleItems.map { $0.item }.max() ?? indexPath.item
-            if (maxItem - 5...maxItem + 5).contains(indexPath.item) {
-                photoCell.configureCell(image: $0)
-            }
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) else { return }
-        
-        let cellFrame = cell.frame.origin
-        let screenY = cell.convert(cellFrame, to: view).y
-        let collectionViewY = cell.frame.origin.y
-        selectedPhotoIndexPath = indexPath
-        selectedPhotoY = screenY - collectionViewY
-            
-        performSegue(withIdentifier: Identifier.detailSegue, sender: nil)
-    }
-    
-}
-
-extension MainViewController: UIScrollViewDelegate {
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        titleImageView.updateSize(heightToSubtract: scrollView.contentOffset.y)
-    }
-    
-}
-
 private extension MainViewController {
     
     enum Count {
@@ -190,15 +115,6 @@ private extension MainViewController {
     enum Identifier {
         static let detailSegue: String = "MainToDetailSegue"
         static let header: String = "PhotoHeader"
-    }
-    
-    func photosEndPoint(page: Int) -> EndPoint {
-        UnsplashEndPoint.photos(page: page, count: Count.perPage)
-    }
-    
-    func photoURLEndPoint(url: String) -> EndPoint {
-        let width = Int(view.frame.width * UIScreen.main.scale)
-        return UnsplashEndPoint.photoURL(url: url, width: width)
     }
 
 }
