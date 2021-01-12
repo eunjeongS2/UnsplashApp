@@ -11,6 +11,7 @@ enum UnsplashEndPoint {
     case photos(page: Int, count: Int)
     case photo(id: String)
     case photoURL(url: String, width: Int)
+    case searchPhotos(query: String)
 }
 
 extension UnsplashEndPoint: EndPoint {
@@ -23,6 +24,8 @@ extension UnsplashEndPoint: EndPoint {
             return URL(string: "\(UnsplashEndPoint.baseURL)/photos/\(id)")
         case .photoURL(let url, let width):
             return URL(string: "\(url)&w=\(width)&fit=max")
+        case .searchPhotos(let query):
+            return URL(string: "\(UnsplashEndPoint.baseURL)/search/photos?query=\(query)")
         }
     }
     
