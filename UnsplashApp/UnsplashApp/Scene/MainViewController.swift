@@ -33,6 +33,7 @@ final class MainViewController: UIViewController {
 
         photoStorage.requestPhotos(endPoint: endPoint) { [weak self] in
             self?.configureCollectionView()
+            self?.configureTitleView()
         }
         photoStorage.addPhotosChangeHandler { [weak self] in
             self?.photoCollectionView.reloadData()
@@ -43,6 +44,23 @@ final class MainViewController: UIViewController {
         PhotoCollectionViewCell.registerNib(collectionView: photoCollectionView)
         photoCollectionView.delegate = self
         photoCollectionView.dataSource = self
+    }
+    
+    private func configureTitleView() {
+        guard let photo = photoStorage.randomPhoto() else { return }
+        
+        titleImageView.configureView(username: photo.username)
+        requestImage(url: photo.url) { [weak self] in
+            self?.titleImageView.configureView(image: $0)
+        }
+    }
+    
+    private func requestImage(url: String, completion: @escaping (UIImage?) -> Void) {
+        let endPoint = self.photoURLEndPoint(url: url)
+        
+        imageService.imageURL(endPoint: endPoint) {
+            completion($0)
+        }
     }
     
     @IBSegueAction private func presentDetailViewController(_ coder: NSCoder) -> DetailViewController? {
@@ -133,11 +151,7 @@ extension MainViewController: UICollectionViewDelegate {
         else {
             return
         }
-        
-        let width = Int(view.frame.width * UIScreen.main.scale)
-        let endPoint = UnsplashEndPoint.photoURL(url: photo.url, width: width)
-        
-        imageService.imageURL(endPoint: endPoint) {
+        requestImage(url: photo.url) {
             let maxItem = collectionView.indexPathsForVisibleItems.map { $0.item }.max() ?? indexPath.item
             if (maxItem - 5...maxItem + 5).contains(indexPath.item) {
                 photoCell.configureCell(image: $0)
@@ -181,4 +195,10 @@ private extension MainViewController {
     func photosEndPoint(page: Int) -> EndPoint {
         UnsplashEndPoint.photos(page: page, count: Count.perPage)
     }
+    
+    func photoURLEndPoint(url: String) -> EndPoint {
+        let width = Int(view.frame.width * UIScreen.main.scale)
+        return UnsplashEndPoint.photoURL(url: url, width: width)
+    }
+
 }
