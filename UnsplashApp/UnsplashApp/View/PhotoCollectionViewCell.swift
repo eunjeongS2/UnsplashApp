@@ -12,12 +12,12 @@ final class PhotoCollectionViewCell: UICollectionViewCell {
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var usernameLabel: UILabel!
     @IBOutlet private weak var sponsoredLabel: UILabel!
-    private let gradientLayer = CAGradientLayer()
+    private var gradientLayer: CAGradientLayer?
     
     func configureCell(username: String, sponsored: Bool, imageSize: CGSize) {
         usernameLabel.text = username
         sponsoredLabel.isHidden = !sponsored
-        gradientLayer.frame.size = imageSize
+        gradientLayer?.frame.size = imageSize
     }
     
     func configureCell(image: UIImage?) {
@@ -26,24 +26,12 @@ final class PhotoCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        configureGradientLayer()
+        gradientLayer = imageView.makeGradientLayer()
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         imageView.image = nil
-    }
-    
-    private func configureGradientLayer() {
-        gradientLayer.frame = imageView.bounds
-        
-        gradientLayer.colors = [
-            UIColor.clear.cgColor,
-            UIColor.clear.cgColor,
-            UIColor.black.cgColor,
-        ]
-        gradientLayer.opacity = 0.3
-        imageView.layer.addSublayer(gradientLayer)
     }
     
 }
