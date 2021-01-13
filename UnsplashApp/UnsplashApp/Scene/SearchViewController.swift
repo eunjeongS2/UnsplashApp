@@ -106,6 +106,13 @@ extension SearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         query = searchBar.text ?? .blank
     }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText == .blank {
+            photoCollectionView.isHidden = true
+            photoStorage.reset()
+        }
+    }
 }
 
 private extension SearchViewController {
