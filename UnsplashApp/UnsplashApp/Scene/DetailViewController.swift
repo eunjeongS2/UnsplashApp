@@ -76,10 +76,8 @@ class DetailViewController: UIViewController {
     }
     
     @IBAction private func cancelButtonTouched(_ sender: UIBarButtonItem) {
-        guard let visibleIndexPath = detailCollectionView.visibleIndexPath
-        else {
-            return
-        }
+        let visibleIndexPath = detailCollectionView.visibleIndexPath ?? .init()
+        
         lastIndexPathHandler?(visibleIndexPath)
         dismiss(animated: true)
     }
