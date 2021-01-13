@@ -42,7 +42,6 @@ struct PhotoService: PhotoServicing {
                 
                 if let photos = try? decoder.decode(SearchPhoto.self, from: data).results {
                     DispatchQueue.main.async {
-                        print(photos)
                         successHandler(photos)
                     }
                     return
