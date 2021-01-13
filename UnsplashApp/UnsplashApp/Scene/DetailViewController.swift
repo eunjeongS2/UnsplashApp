@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
+final class DetailViewController: UIViewController {
     
     @IBOutlet private weak var titleItem: UINavigationItem!
     @IBOutlet private weak var navigationBar: UINavigationBar!
