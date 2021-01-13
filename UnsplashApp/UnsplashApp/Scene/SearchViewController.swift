@@ -1,20 +1,24 @@
 //
-//  MainViewController.swift
+//  SearchViewController.swift
 //  UnsplashApp
 //
-//  Created by eunjeong lee on 2021/01/08.
+//  Created by eunjeong lee on 2021/01/13.
 //
 
 import UIKit
 
-final class MainViewController: UIViewController {
+final class SearchViewController: UIViewController {
 
+    @IBOutlet private weak var searchBar: UISearchBar!
     @IBOutlet private weak var photoCollectionView: UICollectionView!
-    @IBOutlet private weak var titleView: TitleView!
-    
     private var selectedPhotoIndexPath: IndexPath = .init()
     private var selectedPhotoY: CGFloat = .zero
-
+    private var query: String = .blank {
+        didSet {
+            requestPhotos(page: 1)
+        }
+    }
+    
     private let httpService = HTTPService(session: URLSession(configuration: .default))
 
     private lazy var photoStorage: PhotoStorable = {
@@ -34,19 +38,14 @@ final class MainViewController: UIViewController {
                                    perPageCount: Count.perPage,
                                    photosEndPoint: photosEndPoint,
                                    photoURLEndPoint: photoURLEndPoint,
-                                   didSelectHandler: collectionViewDidSelectHandler,
-                                   didScrollHandler: didScrollHandler)
+                                   didSelectHandler: collectionViewDidSelectHandler)
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let endPoint = photosEndPoint(page: 1)
-
-        photoStorage.requestPhotos(endPoint: endPoint) { [weak self] in
-            self?.configureCollectionView()
-            self?.configureTitleView()
-        }
+        configureCollectionView()
+        searchBar.delegate = self
+        photoCollectionView.isHidden = true
         photoStorage.addPhotosChangeHandler { [weak self] in
             self?.photoCollectionView.reloadData()
         }
@@ -57,24 +56,6 @@ final class MainViewController: UIViewController {
         photoCollectionView.dataSource = collectionViewSetting
     }
     
-    private func configureTitleView() {
-        guard let photo = photoStorage.randomPhoto() else { return }
-        
-        titleView.delegate = self
-        titleView.configureView(username: photo.username)
-        requestImage(url: photo.url) { [weak self] in
-            self?.titleView.configureView(image: $0)
-        }
-    }
-    
-    private func requestImage(url: String, completion: @escaping (UIImage?) -> Void) {
-        let endPoint = self.photoURLEndPoint(url: url)
-        
-        imageService.imageURL(endPoint: endPoint) {
-            completion($0)
-        }
-    }
-    
     private func collectionViewDidSelectHandler(indexPath: IndexPath, y: CGFloat) {
         selectedPhotoIndexPath = indexPath
         selectedPhotoY = y
@@ -82,7 +63,7 @@ final class MainViewController: UIViewController {
     }
     
     private func photosEndPoint(page: Int) -> EndPoint {
-        UnsplashEndPoint.photos(page: page, count: Count.perPage)
+        UnsplashEndPoint.searchPhotos(page: page, count: Count.perPage, query: query)
     }
     
     private func photoURLEndPoint(url: String) -> EndPoint {
@@ -90,11 +71,20 @@ final class MainViewController: UIViewController {
         return UnsplashEndPoint.photoURL(url: url, width: width)
     }
     
-    private func didScrollHandler(_ scrollView: UIScrollView) {
-        titleView.updateSize(heightToSubtract: scrollView.contentOffset.y)
+    private func requestPhotos(page: Int) {
+        photoCollectionView.isHidden = false
+
+        let endPoint = photosEndPoint(page: page)
+        photoStorage.requestPhotos(endPoint: endPoint, compeltion: nil)
+    }
+
+    @IBAction private func cancelButtonTouched(_ sender: UIButton) {
+        view.endEditing(true)
+        collectionViewSetting = nil
+        dismiss(animated: false)
     }
     
-    @IBSegueAction private func presentDetailViewController(_ coder: NSCoder) -> DetailViewController? {
+    @IBSegueAction private func prsentDetailViewController(_ coder: NSCoder) -> DetailViewController? {
         return DetailViewController(
             coder: coder,
             photoStorage: photoStorage,
@@ -102,31 +92,39 @@ final class MainViewController: UIViewController {
             firstPhotoIndexPath: selectedPhotoIndexPath,
             animationStartY: selectedPhotoY) { [weak self] in
             self?.photoCollectionView.scrollToItem(at: $0, at: .centeredVertically, animated: false)
-            self?.photoCollectionView.layoutIfNeeded()
-            self?.photoCollectionView.scrollToItem(at: $0, at: .centeredVertically, animated: false)
         }
     }
-
-}
-
-extension MainViewController: TitleViewDelegate {
     
-    func searchViewDidTouched() {
-        performSegue(withIdentifier: Identifier.searchSegue, sender: nil)
+    @IBAction private func trendKeywordTouched(_ sender: UIButton) {
+        query = sender.title(for: .normal) ?? .blank
+        searchBar.text = query
     }
     
 }
 
-private extension MainViewController {
+extension SearchViewController: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        query = searchBar.text ?? .blank
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText == .blank {
+            photoCollectionView.isHidden = true
+            photoStorage.reset()
+        }
+    }
+}
+
+private extension SearchViewController {
     
     enum Count {
         static let perPage: Int = 30
     }
     
     enum Identifier {
-        static let detailSegue: String = "MainToDetailSegue"
-        static let searchSegue: String = "MainToSearchSegue"
-        static let header: String = "PhotoHeader"
+        static let detailSegue: String = "SearchToDetailSegue"
+        static let header: String = "SearchHeader"
     }
 
 }

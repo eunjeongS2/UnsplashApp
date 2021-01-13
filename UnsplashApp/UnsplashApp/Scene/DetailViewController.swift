@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
+final class DetailViewController: UIViewController {
     
     @IBOutlet private weak var titleItem: UINavigationItem!
     @IBOutlet private weak var navigationBar: UINavigationBar!
@@ -76,10 +76,8 @@ class DetailViewController: UIViewController {
     }
     
     @IBAction private func cancelButtonTouched(_ sender: UIBarButtonItem) {
-        guard let visibleIndexPath = detailCollectionView.visibleIndexPath
-        else {
-            return
-        }
+        let visibleIndexPath = detailCollectionView.visibleIndexPath ?? .init()
+        
         lastIndexPathHandler?(visibleIndexPath)
         dismiss(animated: true)
     }

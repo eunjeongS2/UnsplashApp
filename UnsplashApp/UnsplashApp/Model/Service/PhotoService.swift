@@ -23,20 +23,35 @@ struct PhotoService: PhotoServicing {
             url: endPoint.url,
             headers: endPoint.headers,
             successHandler: { data in
-                guard let data = data else { return successHandler(nil) }
-                
-                let decoder = JSONDecoder()
-                guard let photos = try? decoder.decode([Photo].self, from: data)
+                guard let data = data
                 else {
-                    return successHandler(nil)
+                    DispatchQueue.main.async {
+                        successHandler(nil)
+                    }
+                    return
                 }
-                
+                let decoder = JSONDecoder()
+         
+                if let photos = try? decoder.decode([Photo].self, from: data) {
+                    DispatchQueue.main.async {
+                        successHandler(photos)
+                    }
+                    return
+                }
+                if let photos = try? decoder.decode(SearchPhoto.self, from: data).results {
+                    DispatchQueue.main.async {
+                        successHandler(photos)
+                    }
+                    return
+                }
                 DispatchQueue.main.async {
-                    successHandler(photos)
+                    successHandler(nil)
                 }
-                
             },
             failureHandler: failureHandler)
     }
+}
 
+private struct SearchPhoto: Codable {
+    let results: [Photo]
 }

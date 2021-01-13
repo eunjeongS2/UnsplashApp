@@ -45,7 +45,9 @@ final class ImageService: ImageServicing {
                   let data = try? Data(contentsOf: imageURL),
                   let image = UIImage(data: data)
             else {
-                successHandler(nil)
+                DispatchQueue.main.async {
+                    successHandler(nil)
+                }
                 return
             }
             
