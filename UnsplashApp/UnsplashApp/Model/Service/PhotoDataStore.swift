@@ -15,6 +15,7 @@ protocol PhotoStorable {
     func requestPhotos(endPoint: EndPoint, compeltion: (() -> Void)?)
     func addPhotosChangeHandler(_ handler: @escaping () -> Void)
     func randomPhoto() -> Photo?
+    func reset()
 }
 
 class PhotoDataStore: PhotoStorable {
@@ -60,6 +61,10 @@ class PhotoDataStore: PhotoStorable {
     func randomPhoto() -> Photo? {
         let randomIndex = (0..<count).randomElement() ?? .zero
         return photos[safe: randomIndex]
+    }
+    
+    func reset() {
+        photos = [Photo]()
     }
 
 }
