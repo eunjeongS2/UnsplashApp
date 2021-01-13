@@ -33,10 +33,10 @@ final class DetailCollectionViewCell: UICollectionViewCell {
             delay: .zero,
             usingSpringWithDamping: 0.85,
             initialSpringVelocity: 0.5,
-            options: .curveEaseIn) {
+            options: .curveEaseIn) { [weak self] in
             
-            self.imageViewCenterYConstraint.constant = .zero
-            self.layoutIfNeeded()
+            self?.imageViewCenterYConstraint.constant = .zero
+            self?.layoutIfNeeded()
        }
     }
     

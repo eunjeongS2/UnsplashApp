@@ -26,7 +26,7 @@ final class MainViewController: UIViewController {
         ImageService(urlProvider: httpService)
     }()
     
-    private lazy var collectionViewSetting: PhotoCollectionViewSetting = {
+    private lazy var collectionViewSetting: PhotoCollectionViewSetting? = {
         PhotoCollectionViewSetting(collectionView: photoCollectionView,
                                    headerIdentifier: Identifier.header,
                                    photoStorage: photoStorage,

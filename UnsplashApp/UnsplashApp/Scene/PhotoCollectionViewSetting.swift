@@ -44,7 +44,7 @@ final class PhotoCollectionViewSetting: NSObject {
     }
     
     private func requestImage(url: String, completion: @escaping (UIImage?) -> Void) {
-        let endPoint = self.photoURLEndPoint(url)
+        let endPoint = photoURLEndPoint(url)
         
         imageService.imageURL(endPoint: endPoint) {
             completion($0)

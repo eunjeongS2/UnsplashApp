@@ -30,7 +30,7 @@ final class SearchViewController: UIViewController {
         ImageService(urlProvider: httpService)
     }()
     
-    private lazy var collectionViewSetting: PhotoCollectionViewSetting = {
+    private lazy var collectionViewSetting: PhotoCollectionViewSetting? = {
         PhotoCollectionViewSetting(collectionView: photoCollectionView,
                                    headerIdentifier: Identifier.header,
                                    photoStorage: photoStorage,
@@ -79,8 +79,9 @@ final class SearchViewController: UIViewController {
     }
 
     @IBAction private func cancelButtonTouched(_ sender: UIButton) {
-        dismiss(animated: false)
         view.endEditing(true)
+        collectionViewSetting = nil
+        dismiss(animated: false)
     }
     
     @IBSegueAction private func prsentDetailViewController(_ coder: NSCoder) -> DetailViewController? {
