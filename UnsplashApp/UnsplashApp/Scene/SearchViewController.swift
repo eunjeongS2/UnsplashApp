@@ -40,6 +40,11 @@ final class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
+        searchBar.delegate = self
+        
+        photoStorage.addPhotosChangeHandler { [weak self] in
+            self?.photoCollectionView.reloadData()
+        }
     }
     
     private func configureCollectionView() {
@@ -67,6 +72,25 @@ final class SearchViewController: UIViewController {
         view.endEditing(true)
     }
     
+    @IBSegueAction private func prsentDetailViewController(_ coder: NSCoder) -> DetailViewController? {
+        return DetailViewController(
+            coder: coder,
+            photoStorage: photoStorage,
+            imageService: imageService,
+            firstPhotoIndexPath: selectedPhotoIndexPath,
+            animationStartY: selectedPhotoY) { [weak self] in
+            self?.photoCollectionView.scrollToItem(at: $0, at: .centeredVertically, animated: false)
+        }
+    }
+}
+
+extension SearchViewController: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        query = searchBar.text ?? .blank
+        let endPoint = photosEndPoint(page: 1)
+        photoStorage.requestPhotos(endPoint: endPoint, compeltion: nil)
+    }
 }
 
 private extension SearchViewController {

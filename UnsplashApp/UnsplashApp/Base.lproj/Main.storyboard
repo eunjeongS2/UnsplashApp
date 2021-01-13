@@ -37,7 +37,7 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="8iM-EW-Z54">
                                 <rect key="frame" x="0.0" y="110" width="414" height="752"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="y50-ix-UNe">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="0.0" id="y50-ix-UNe">
                                     <size key="itemSize" width="128" height="128"/>
                                     <size key="headerReferenceSize" width="50" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -67,7 +67,7 @@
                     <connections>
                         <outlet property="photoCollectionView" destination="8iM-EW-Z54" id="dFF-SS-I98"/>
                         <outlet property="searchBar" destination="Pd5-pb-AoZ" id="aWp-tD-5fB"/>
-                        <segue destination="ff5-fa-sjY" kind="presentation" identifier="SearchToDetailSegue" modalPresentationStyle="fullScreen" id="M6Q-US-wzN"/>
+                        <segue destination="ff5-fa-sjY" kind="presentation" identifier="SearchToDetailSegue" destinationCreationSelector="prsentDetailViewController:" modalPresentationStyle="fullScreen" id="M6Q-US-wzN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Py2-3o-Fti" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
