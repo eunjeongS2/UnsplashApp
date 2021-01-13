@@ -35,7 +35,7 @@
                                 </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="8iM-EW-Z54">
-                                <rect key="frame" x="0.0" y="110" width="414" height="752"/>
+                                <rect key="frame" x="0.0" y="100" width="414" height="762"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="0.0" id="y50-ix-UNe">
                                     <size key="itemSize" width="128" height="128"/>
@@ -60,14 +60,14 @@
                             <constraint firstItem="1Vg-td-fp2" firstAttribute="trailing" secondItem="fBF-eb-Gyj" secondAttribute="trailing" constant="16" id="hBn-Zx-rNr"/>
                             <constraint firstItem="fBF-eb-Gyj" firstAttribute="leading" secondItem="Pd5-pb-AoZ" secondAttribute="trailing" id="nWl-8l-4Cb"/>
                             <constraint firstItem="1Vg-td-fp2" firstAttribute="trailing" secondItem="8iM-EW-Z54" secondAttribute="trailing" id="rve-Ph-QDa"/>
-                            <constraint firstItem="8iM-EW-Z54" firstAttribute="top" secondItem="Pd5-pb-AoZ" secondAttribute="bottom" constant="10" id="sRB-q0-oEX"/>
+                            <constraint firstItem="8iM-EW-Z54" firstAttribute="top" secondItem="Pd5-pb-AoZ" secondAttribute="bottom" id="sRB-q0-oEX"/>
                             <constraint firstItem="fBF-eb-Gyj" firstAttribute="centerY" secondItem="Pd5-pb-AoZ" secondAttribute="centerY" id="uX1-xX-4ZI"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="photoCollectionView" destination="8iM-EW-Z54" id="dFF-SS-I98"/>
                         <outlet property="searchBar" destination="Pd5-pb-AoZ" id="aWp-tD-5fB"/>
-                        <segue destination="ff5-fa-sjY" kind="presentation" identifier="SearchToDetailSegue" destinationCreationSelector="prsentDetailViewController:" modalPresentationStyle="fullScreen" id="M6Q-US-wzN"/>
+                        <segue destination="ff5-fa-sjY" kind="presentation" identifier="SearchToDetailSegue" destinationCreationSelector="prsentDetailViewController:" animates="NO" modalPresentationStyle="fullScreen" id="M6Q-US-wzN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Py2-3o-Fti" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -85,6 +85,35 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ylo-Zb-GKl">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="iui-y0-Fgt">
+                                        <rect key="frame" x="0.0" y="290" width="414" height="528"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="0.0" id="QQU-Tt-wEK">
+                                            <size key="itemSize" width="128" height="128"/>
+                                            <size key="headerReferenceSize" width="50" height="50"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells/>
+                                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="PhotoHeader" id="MFN-10-Y42">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="luw-Pf-ySG">
+                                                    <rect key="frame" x="20" y="24" width="31.5" height="12"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="luw-Pf-ySG" secondAttribute="trailing" constant="12" id="MbX-c8-trB"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="luw-Pf-ySG" secondAttribute="bottom" constant="6" id="Ztw-c7-A20"/>
+                                                <constraint firstItem="luw-Pf-ySG" firstAttribute="top" secondItem="MFN-10-Y42" secondAttribute="topMargin" constant="16" id="lV0-qi-kif"/>
+                                                <constraint firstItem="luw-Pf-ySG" firstAttribute="leading" secondItem="MFN-10-Y42" secondAttribute="leadingMargin" constant="12" id="y4H-OM-J9p"/>
+                                            </constraints>
+                                        </collectionReusableView>
+                                    </collectionView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ewV-2w-t7w" customClass="TitleView" customModule="UnsplashApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="290"/>
                                         <subviews>
@@ -207,45 +236,16 @@
                                             <outletCollection property="searchViews" destination="qCl-SO-hpI" collectionClass="NSMutableArray" id="Cfk-OV-LEx"/>
                                         </connections>
                                     </view>
-                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="iui-y0-Fgt">
-                                        <rect key="frame" x="0.0" y="290" width="414" height="528"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="0.0" id="QQU-Tt-wEK">
-                                            <size key="itemSize" width="128" height="128"/>
-                                            <size key="headerReferenceSize" width="50" height="50"/>
-                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        </collectionViewFlowLayout>
-                                        <cells/>
-                                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="PhotoHeader" id="MFN-10-Y42">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="luw-Pf-ySG">
-                                                    <rect key="frame" x="20" y="24" width="31.5" height="12"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="luw-Pf-ySG" secondAttribute="trailing" constant="12" id="MbX-c8-trB"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="luw-Pf-ySG" secondAttribute="bottom" constant="6" id="Ztw-c7-A20"/>
-                                                <constraint firstItem="luw-Pf-ySG" firstAttribute="top" secondItem="MFN-10-Y42" secondAttribute="topMargin" constant="16" id="lV0-qi-kif"/>
-                                                <constraint firstItem="luw-Pf-ySG" firstAttribute="leading" secondItem="MFN-10-Y42" secondAttribute="leadingMargin" constant="12" id="y4H-OM-J9p"/>
-                                            </constraints>
-                                        </collectionReusableView>
-                                    </collectionView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="iui-y0-Fgt" firstAttribute="top" secondItem="ewV-2w-t7w" secondAttribute="bottom" id="2s6-gV-uYb"/>
                                     <constraint firstAttribute="trailing" secondItem="iui-y0-Fgt" secondAttribute="trailing" id="Q49-iW-crS"/>
                                     <constraint firstItem="ewV-2w-t7w" firstAttribute="leading" secondItem="ylo-Zb-GKl" secondAttribute="leading" id="TLC-64-HnZ"/>
                                     <constraint firstAttribute="trailing" secondItem="ewV-2w-t7w" secondAttribute="trailing" id="ZKK-4L-qpK"/>
+                                    <constraint firstItem="iui-y0-Fgt" firstAttribute="top" secondItem="fEz-Oz-yoP" secondAttribute="bottom" id="ZhD-vd-1Rq"/>
                                     <constraint firstItem="iui-y0-Fgt" firstAttribute="leading" secondItem="ylo-Zb-GKl" secondAttribute="leading" id="goE-bb-eDP"/>
                                     <constraint firstItem="ewV-2w-t7w" firstAttribute="top" secondItem="ylo-Zb-GKl" secondAttribute="top" id="hUv-X5-O2R"/>
-                                    <constraint firstAttribute="bottom" secondItem="iui-y0-Fgt" secondAttribute="bottom" id="k3M-kS-XhT"/>
+                                    <constraint firstItem="iui-y0-Fgt" firstAttribute="bottom" secondItem="ylo-Zb-GKl" secondAttribute="bottom" id="j50-Nq-JfE"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -362,7 +362,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="UwI-aY-y1F"/>
+        <segue reference="M6Q-US-wzN"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>

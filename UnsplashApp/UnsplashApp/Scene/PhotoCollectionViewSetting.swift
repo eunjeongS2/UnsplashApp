@@ -84,7 +84,7 @@ extension PhotoCollectionViewSetting: UICollectionViewDelegate {
         guard let cell = collectionView.cellForItem(at: indexPath) else { return }
         
         let cellFrame = cell.frame.origin
-        let view = collectionView.superview ?? collectionView
+        let view = collectionView.superview?.superview ?? collectionView
         let screenY = cell.convert(cellFrame, to: view).y
 
         selectedPhotoIndexPath = indexPath

@@ -102,6 +102,8 @@ final class MainViewController: UIViewController {
             firstPhotoIndexPath: selectedPhotoIndexPath,
             animationStartY: selectedPhotoY) { [weak self] in
             self?.photoCollectionView.scrollToItem(at: $0, at: .centeredVertically, animated: false)
+            self?.photoCollectionView.layoutIfNeeded()
+            self?.photoCollectionView.scrollToItem(at: $0, at: .centeredVertically, animated: false)
         }
     }
 
