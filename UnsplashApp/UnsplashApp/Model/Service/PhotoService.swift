@@ -30,7 +30,6 @@ struct PhotoService: PhotoServicing {
                     }
                     return
                 }
-                
                 let decoder = JSONDecoder()
          
                 if let photos = try? decoder.decode([Photo].self, from: data) {
@@ -39,7 +38,6 @@ struct PhotoService: PhotoServicing {
                     }
                     return
                 }
-                
                 if let photos = try? decoder.decode(SearchPhoto.self, from: data).results {
                     DispatchQueue.main.async {
                         successHandler(photos)
