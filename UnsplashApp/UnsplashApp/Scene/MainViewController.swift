@@ -10,7 +10,7 @@ import UIKit
 final class MainViewController: UIViewController {
 
     @IBOutlet private weak var photoCollectionView: UICollectionView!
-    @IBOutlet private weak var titleImageView: TitleView!
+    @IBOutlet private weak var titleView: TitleView!
     
     private var selectedPhotoIndexPath: IndexPath = .init()
     private var selectedPhotoY: CGFloat = .zero
@@ -60,9 +60,10 @@ final class MainViewController: UIViewController {
     private func configureTitleView() {
         guard let photo = photoStorage.randomPhoto() else { return }
         
-        titleImageView.configureView(username: photo.username)
+        titleView.delegate = self
+        titleView.configureView(username: photo.username)
         requestImage(url: photo.url) { [weak self] in
-            self?.titleImageView.configureView(image: $0)
+            self?.titleView.configureView(image: $0)
         }
     }
     
@@ -90,7 +91,7 @@ final class MainViewController: UIViewController {
     }
     
     private func didScrollHandler(_ scrollView: UIScrollView) {
-        titleImageView.updateSize(heightToSubtract: scrollView.contentOffset.y)
+        titleView.updateSize(heightToSubtract: scrollView.contentOffset.y)
     }
     
     @IBSegueAction private func presentDetailViewController(_ coder: NSCoder) -> DetailViewController? {
@@ -106,6 +107,14 @@ final class MainViewController: UIViewController {
 
 }
 
+extension MainViewController: TitleViewDelegate {
+    
+    func searchViewDidTouched() {
+        performSegue(withIdentifier: Identifier.searchSegue, sender: nil)
+    }
+    
+}
+
 private extension MainViewController {
     
     enum Count {
@@ -114,6 +123,7 @@ private extension MainViewController {
     
     enum Identifier {
         static let detailSegue: String = "MainToDetailSegue"
+        static let searchSegue: String = "MainToSearchSegue"
         static let header: String = "PhotoHeader"
     }
 

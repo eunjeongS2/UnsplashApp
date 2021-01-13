@@ -36,11 +36,15 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="y50-ix-UNe">
                                     <size key="itemSize" width="128" height="128"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="headerReferenceSize" width="50" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells/>
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="SearchHeader" id="mbP-Pk-Ajh">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </collectionReusableView>
                             </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="1Vg-td-fp2"/>
@@ -60,11 +64,12 @@
                     <connections>
                         <outlet property="photoCollectionView" destination="8iM-EW-Z54" id="dFF-SS-I98"/>
                         <outlet property="searchBar" destination="Pd5-pb-AoZ" id="aWp-tD-5fB"/>
+                        <segue destination="ff5-fa-sjY" kind="presentation" identifier="SearchToDetailSegue" modalPresentationStyle="fullScreen" id="M6Q-US-wzN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Py2-3o-Fti" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-539.13043478260875" y="32.8125"/>
+            <point key="canvasLocation" x="-65" y="20"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -100,7 +105,7 @@
                                                         <color key="tintColor" red="0.46676403280000001" green="0.4664238691" blue="0.48235529659999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search photos" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F8l-B4-fNd">
-                                                        <rect key="frame" x="31" y="7.5" width="111" height="21"/>
+                                                        <rect key="frame" x="30" y="7.5" width="111" height="21"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" systemColor="systemGrayColor"/>
                                                         <nil key="highlightedColor"/>
@@ -110,7 +115,7 @@
                                                 <constraints>
                                                     <constraint firstItem="r51-ji-46Y" firstAttribute="leading" secondItem="VQZ-Ug-bW3" secondAttribute="leading" constant="6" id="63r-GA-o2d"/>
                                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="F8l-B4-fNd" secondAttribute="trailing" constant="5" id="G2r-Yf-jK2"/>
-                                                    <constraint firstItem="F8l-B4-fNd" firstAttribute="leading" secondItem="r51-ji-46Y" secondAttribute="trailing" constant="5" id="Lt6-VL-IdI"/>
+                                                    <constraint firstItem="F8l-B4-fNd" firstAttribute="leading" secondItem="r51-ji-46Y" secondAttribute="trailing" constant="4" id="Lt6-VL-IdI"/>
                                                     <constraint firstItem="r51-ji-46Y" firstAttribute="top" secondItem="VQZ-Ug-bW3" secondAttribute="top" constant="4" id="VK6-OX-akv"/>
                                                     <constraint firstAttribute="bottom" secondItem="r51-ji-46Y" secondAttribute="bottom" constant="4" id="X9f-E2-S5T"/>
                                                     <constraint firstItem="F8l-B4-fNd" firstAttribute="centerY" secondItem="VQZ-Ug-bW3" secondAttribute="centerY" id="izX-R5-vq6"/>
@@ -133,7 +138,7 @@
                                                                 <color key="tintColor" red="0.46676403280000001" green="0.4664238691" blue="0.48235529659999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search photos" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aO2-dM-9c9">
-                                                                <rect key="frame" x="31" y="7.5" width="111" height="21"/>
+                                                                <rect key="frame" x="30" y="7.5" width="111" height="21"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <color key="textColor" systemColor="systemGrayColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -143,7 +148,7 @@
                                                         <constraints>
                                                             <constraint firstItem="jyp-rH-RZv" firstAttribute="top" secondItem="1JH-FW-FZ6" secondAttribute="top" constant="4" id="0Mu-Xb-EC2"/>
                                                             <constraint firstItem="aO2-dM-9c9" firstAttribute="centerY" secondItem="1JH-FW-FZ6" secondAttribute="centerY" id="1sf-7M-QaS"/>
-                                                            <constraint firstItem="aO2-dM-9c9" firstAttribute="leading" secondItem="jyp-rH-RZv" secondAttribute="trailing" constant="5" id="7AX-73-L6r"/>
+                                                            <constraint firstItem="aO2-dM-9c9" firstAttribute="leading" secondItem="jyp-rH-RZv" secondAttribute="trailing" constant="4" id="7AX-73-L6r"/>
                                                             <constraint firstAttribute="bottom" secondItem="jyp-rH-RZv" secondAttribute="bottom" constant="4" id="HuZ-T0-4iK"/>
                                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="aO2-dM-9c9" secondAttribute="trailing" constant="5" id="JTZ-qw-TXC"/>
                                                             <constraint firstItem="jyp-rH-RZv" firstAttribute="leading" secondItem="1JH-FW-FZ6" secondAttribute="leading" constant="6" id="t9V-u3-Ab9"/>
@@ -252,14 +257,14 @@
                     </view>
                     <connections>
                         <outlet property="photoCollectionView" destination="iui-y0-Fgt" id="kpS-Tb-QQY"/>
-                        <outlet property="titleImageView" destination="ewV-2w-t7w" id="Fne-ZE-TQq"/>
+                        <outlet property="titleView" destination="ewV-2w-t7w" id="Fne-ZE-TQq"/>
                         <segue destination="ff5-fa-sjY" kind="presentation" identifier="MainToDetailSegue" destinationCreationSelector="presentDetailViewController:" animates="NO" modalPresentationStyle="fullScreen" id="UwI-aY-y1F"/>
-                        <segue destination="ahP-94-wCm" kind="presentation" modalPresentationStyle="fullScreen" id="sWz-cB-8Ot"/>
+                        <segue destination="ahP-94-wCm" kind="presentation" identifier="MainToSearchSegue" animates="NO" modalPresentationStyle="fullScreen" id="sWz-cB-8Ot"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="303" y="33"/>
+            <point key="canvasLocation" x="345" y="-719"/>
         </scene>
         <!--Detail View Controller-->
         <scene sceneID="LL0-BO-BqB">
@@ -350,9 +355,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cJW-rh-Z6E" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1046" y="33"/>
+            <point key="canvasLocation" x="725" y="19"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="UwI-aY-y1F"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <systemColor name="systemBackgroundColor">
