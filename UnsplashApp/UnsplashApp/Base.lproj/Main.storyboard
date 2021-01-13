@@ -34,6 +34,57 @@
                                     <action selector="cancelButtonTouched:" destination="ahP-94-wCm" eventType="touchUpInside" id="yfg-9y-xp4"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trending" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K8s-dl-PlX">
+                                <rect key="frame" x="18" y="120" width="85" height="25.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="21"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zbq-sS-A7B">
+                                <rect key="frame" x="20" y="155.5" width="66" height="30"/>
+                                <state key="normal" title="computer">
+                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="trendKeywordTouched:" destination="ahP-94-wCm" eventType="touchUpInside" id="MyV-NI-3VA"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MdZ-r1-bLs">
+                                <rect key="frame" x="20" y="185.5" width="30" height="30"/>
+                                <state key="normal" title="sky">
+                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="trendKeywordTouched:" destination="ahP-94-wCm" eventType="touchUpInside" id="tEL-g6-6Uh"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GgO-Fd-0qO">
+                                <rect key="frame" x="20" y="215.5" width="39" height="30"/>
+                                <state key="normal" title="office">
+                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="trendKeywordTouched:" destination="ahP-94-wCm" eventType="touchUpInside" id="9bD-7T-qgy"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JuH-bF-Udd">
+                                <rect key="frame" x="20" y="245.5" width="82" height="30"/>
+                                <state key="normal" title="background">
+                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="trendKeywordTouched:" destination="ahP-94-wCm" eventType="touchUpInside" id="3SV-2s-Dfk"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hc9-yL-pMk">
+                                <rect key="frame" x="20" y="275.5" width="43" height="30"/>
+                                <state key="normal" title="beach">
+                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="trendKeywordTouched:" destination="ahP-94-wCm" eventType="touchUpInside" id="DRZ-q6-RA7"/>
+                                </connections>
+                            </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="8iM-EW-Z54">
                                 <rect key="frame" x="0.0" y="100" width="414" height="762"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -53,15 +104,27 @@
                         <viewLayoutGuide key="safeArea" id="1Vg-td-fp2"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="Hc9-yL-pMk" firstAttribute="leading" secondItem="1Vg-td-fp2" secondAttribute="leading" constant="20" id="9ip-OE-tn5"/>
+                            <constraint firstItem="Zbq-sS-A7B" firstAttribute="top" secondItem="K8s-dl-PlX" secondAttribute="bottom" constant="10" id="FP5-Mt-kH2"/>
                             <constraint firstItem="8iM-EW-Z54" firstAttribute="leading" secondItem="1Vg-td-fp2" secondAttribute="leading" id="I57-cV-gng"/>
                             <constraint firstItem="1Vg-td-fp2" firstAttribute="bottom" secondItem="8iM-EW-Z54" secondAttribute="bottom" id="KYj-3R-XGz"/>
+                            <constraint firstItem="MdZ-r1-bLs" firstAttribute="leading" secondItem="1Vg-td-fp2" secondAttribute="leading" constant="20" id="LbU-oK-qvj"/>
+                            <constraint firstItem="GgO-Fd-0qO" firstAttribute="top" secondItem="MdZ-r1-bLs" secondAttribute="bottom" id="NjC-9Q-nmD"/>
+                            <constraint firstItem="Hc9-yL-pMk" firstAttribute="top" secondItem="JuH-bF-Udd" secondAttribute="bottom" id="Sto-hq-nR2"/>
+                            <constraint firstItem="GgO-Fd-0qO" firstAttribute="leading" secondItem="1Vg-td-fp2" secondAttribute="leading" constant="20" id="ck7-3i-WrH"/>
+                            <constraint firstItem="K8s-dl-PlX" firstAttribute="top" secondItem="Pd5-pb-AoZ" secondAttribute="bottom" constant="20" id="d3o-am-3qY"/>
                             <constraint firstItem="Pd5-pb-AoZ" firstAttribute="leading" secondItem="OU3-f2-ehd" secondAttribute="leading" id="dWL-SX-YuU"/>
                             <constraint firstItem="Pd5-pb-AoZ" firstAttribute="top" secondItem="1Vg-td-fp2" secondAttribute="top" id="eHc-Xd-l8U"/>
                             <constraint firstItem="1Vg-td-fp2" firstAttribute="trailing" secondItem="fBF-eb-Gyj" secondAttribute="trailing" constant="16" id="hBn-Zx-rNr"/>
+                            <constraint firstItem="K8s-dl-PlX" firstAttribute="leading" secondItem="1Vg-td-fp2" secondAttribute="leading" constant="18" id="lXx-1l-6ih"/>
                             <constraint firstItem="fBF-eb-Gyj" firstAttribute="leading" secondItem="Pd5-pb-AoZ" secondAttribute="trailing" id="nWl-8l-4Cb"/>
+                            <constraint firstItem="Zbq-sS-A7B" firstAttribute="leading" secondItem="1Vg-td-fp2" secondAttribute="leading" constant="20" id="rQt-DN-k6a"/>
                             <constraint firstItem="1Vg-td-fp2" firstAttribute="trailing" secondItem="8iM-EW-Z54" secondAttribute="trailing" id="rve-Ph-QDa"/>
                             <constraint firstItem="8iM-EW-Z54" firstAttribute="top" secondItem="Pd5-pb-AoZ" secondAttribute="bottom" id="sRB-q0-oEX"/>
                             <constraint firstItem="fBF-eb-Gyj" firstAttribute="centerY" secondItem="Pd5-pb-AoZ" secondAttribute="centerY" id="uX1-xX-4ZI"/>
+                            <constraint firstItem="MdZ-r1-bLs" firstAttribute="top" secondItem="Zbq-sS-A7B" secondAttribute="bottom" id="uga-4e-0sy"/>
+                            <constraint firstItem="JuH-bF-Udd" firstAttribute="leading" secondItem="1Vg-td-fp2" secondAttribute="leading" constant="20" id="ynU-C8-TmR"/>
+                            <constraint firstItem="JuH-bF-Udd" firstAttribute="top" secondItem="GgO-Fd-0qO" secondAttribute="bottom" id="yql-ci-zYy"/>
                         </constraints>
                     </view>
                     <connections>
@@ -72,7 +135,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Py2-3o-Fti" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-65" y="20"/>
+            <point key="canvasLocation" x="-65.217391304347828" y="19.419642857142858"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="tne-QT-ifu">

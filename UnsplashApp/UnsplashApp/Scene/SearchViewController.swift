@@ -13,7 +13,11 @@ final class SearchViewController: UIViewController {
     @IBOutlet private weak var photoCollectionView: UICollectionView!
     private var selectedPhotoIndexPath: IndexPath = .init()
     private var selectedPhotoY: CGFloat = .zero
-    private var query: String = .blank
+    private var query: String = .blank {
+        didSet {
+            requestPhotos(page: 1)
+        }
+    }
     
     private let httpService = HTTPService(session: URLSession(configuration: .default))
 
@@ -41,7 +45,7 @@ final class SearchViewController: UIViewController {
         super.viewDidLoad()
         configureCollectionView()
         searchBar.delegate = self
-        
+        photoCollectionView.isHidden = true
         photoStorage.addPhotosChangeHandler { [weak self] in
             self?.photoCollectionView.reloadData()
         }
@@ -66,6 +70,13 @@ final class SearchViewController: UIViewController {
         let width = Int(view.frame.width * UIScreen.main.scale)
         return UnsplashEndPoint.photoURL(url: url, width: width)
     }
+    
+    private func requestPhotos(page: Int) {
+        photoCollectionView.isHidden = false
+
+        let endPoint = photosEndPoint(page: page)
+        photoStorage.requestPhotos(endPoint: endPoint, compeltion: nil)
+    }
 
     @IBAction private func cancelButtonTouched(_ sender: UIButton) {
         dismiss(animated: false)
@@ -82,14 +93,17 @@ final class SearchViewController: UIViewController {
             self?.photoCollectionView.scrollToItem(at: $0, at: .centeredVertically, animated: false)
         }
     }
+    
+    @IBAction private func trendKeywordTouched(_ sender: UIButton) {
+        query = sender.title(for: .normal) ?? .blank
+    }
+    
 }
 
 extension SearchViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         query = searchBar.text ?? .blank
-        let endPoint = photosEndPoint(page: 1)
-        photoStorage.requestPhotos(endPoint: endPoint, compeltion: nil)
     }
 }
 
