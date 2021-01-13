@@ -96,6 +96,7 @@ final class SearchViewController: UIViewController {
     
     @IBAction private func trendKeywordTouched(_ sender: UIButton) {
         query = sender.title(for: .normal) ?? .blank
+        searchBar.text = query
     }
     
 }
